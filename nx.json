@@ -4,7 +4,9 @@
     "build": {
       "cache": true,
       "dependsOn": [
-        "^build"
+        "^build",
+        "codegen",
+        "^codegen"
       ],
       "inputs": [
         "production",
@@ -12,9 +14,39 @@
       ]
     },
     "lint": {
-      "cache": true
+      "cache": true,
+      "inputs": [
+        "default",
+        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/.eslintignore",
+        "{workspaceRoot}/eslint.config.js"
+      ]
     },
     "e2e": {
+      "cache": true
+    },
+    "codegen": {
+      "cache": true,
+      "executor": "@trumbitta/nx-plugin-openapi:generate-api-lib-sources"
+    },
+    "@nx/jest:jest": {
+      "cache": true,
+      "inputs": [
+        "default",
+        "^production",
+        "{workspaceRoot}/jest.preset.js"
+      ],
+      "options": {
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "swagger": {
       "cache": true
     }
   },
@@ -24,9 +56,72 @@
       "sharedGlobals"
     ],
     "production": [
-      "default"
+      "default",
+      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/eslint.config.js",
+      "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
+      "!{projectRoot}/tsconfig.spec.json",
+      "!{projectRoot}/jest.config.[jt]s",
+      "!{projectRoot}/src/test-setup.[jt]s",
+      "!{projectRoot}/test-setup.[jt]s"
     ],
     "sharedGlobals": []
   },
-  "nxCloudAccessToken": "MDFjYTlmNzYtNzVhNS00Nzg3LWE3MDMtYTg5NDQwMTFmMjU4fHJlYWQtd3JpdGU="
+  "nxCloudAccessToken": "MDFjYTlmNzYtNzVhNS00Nzg3LWE3MDMtYTg5NDQwMTFmMjU4fHJlYWQtd3JpdGU=",
+  "plugins": [
+    {
+      "plugin": "@nx-dotnet/core",
+      "options": {
+        "solutionFile": "{npmScope}.nx-dotnet.sln",
+        "inferProjects": true,
+        "nugetPackages": {
+          "Microsoft.AspNetCore.OpenApi": "7.0.12",
+          "Swashbuckle.AspNetCore": "6.5.0",
+          "Microsoft.Extensions.DependencyInjection": "8.0.0",
+          "Microsoft.Extensions.Hosting": "8.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Logging.Console": "8.0.0",
+          "Microsoft.Extensions.Configuration": "8.0.0",
+          "Microsoft.Extensions.Configuration.Json": "8.0.0",
+          "Microsoft.Extensions.Configuration.Binder": "8.0.0",
+          "Microsoft.Extensions.Configuration.CommandLine": "8.0.0",
+          "Microsoft.ApplicationInsights.AspNetCore": "2.21.0",
+          "Microsoft.Orleans.Client": "3.7.1",
+          "Microsoft.Orleans.Clustering.AzureStorage": "3.7.1",
+          "Microsoft.Orleans.Core": "3.7.1",
+          "Microsoft.Orleans.Core.Abstractions": "3.7.1",
+          "Microsoft.Orleans.OrleansProviders": "3.7.1",
+          "Microsoft.Orleans.OrleansRuntime": "3.7.1",
+          "Microsoft.Orleans.OrleansTelemetryConsumers.AI": "3.7.1",
+          "Microsoft.Orleans.Persistence.AzureStorage": "3.7.1",
+          "Microsoft.Orleans.Reminders.AzureStorage": "3.7.1",
+          "Microsoft.Orleans.Runtime.Abstractions": "3.7.1",
+          "Microsoft.Orleans.Server": "3.7.1",
+          "Orleans.Clustering.Kubernetes": "2.1.0",
+          "OrleansDashboard": "3.6.2",
+          "Orleans.Contrib.UniversalSilo": "0.9.1",
+          "FsCheck.Xunit": "3.0.0-rc1",
+          "Microsoft.NET.Test.Sdk": "17.8.0",
+          "Microsoft.Orleans.TestingHost": "3.7.1",
+          "Swashbuckle.AspNetCore.Annotations": "6.2.3",
+          "xunit": "2.6.1",
+          "xunit.runner.visualstudio": "2.5.3",
+          "coverlet.collector": "6.0.0",
+          "Microsoft.Orleans.CodeGenerator.MSBuild": "3.7.1"
+        },
+        "inferredTargets": {
+          "build": "build",
+          "lint": "lint",
+          "serve": "serve",
+          "test": "test"
+        },
+        "ignorePaths": [],
+        "tags": [
+          "nx-dotnet",
+          "nx-dotnet",
+          "nx-dotnet"
+        ]
+      }
+    }
+  ]
 }
