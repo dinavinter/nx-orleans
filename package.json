@@ -14,6 +14,7 @@
   "private": true,
   "devDependencies": {
     "@nx-dotnet/core": "^2.1.1",
+    "@nx-dotnet/nxdoc": "^2.1.1",
     "@nx/eslint": "17.1.2",
     "@nx/eslint-plugin": "17.1.2",
     "@nx/jest": "17.1.2",

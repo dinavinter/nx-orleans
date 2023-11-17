@@ -1,0 +1,37 @@
+{
+  "name": "generated-api-types",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "generated/api-types/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/generated/api-types",
+        "main": "generated/api-types/src/index.ts",
+        "tsConfig": "generated/api-types/tsconfig.lib.json",
+        "assets": ["generated/api-types/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "generated/api-types/**/*.ts",
+          "generated/api-types/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "generated/api-types/jest.config.ts"
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["api-swagger"]
+}

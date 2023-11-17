@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "api", "apps\api\api.csproj", "{C4176E95-19F9-405F-BC76-EF99BB758F64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grain-controllers", "libs\grain-controllers\grain-controllers.csproj", "{9BDA7CBF-25C8-4997-BE2F-145A3F214733}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grains", "libs\grains\grains.csproj", "{85D606DD-D207-499C-8F88-614960DE906A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grain-tests", "libs\grain-tests\grain-tests.csproj", "{42DF18F7-5A9A-4915-84C3-4CB80F66B635}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{D60D9083-AF73-4264-BA04-8F57A0194D06}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		jest.config.ts = jest.config.ts
+		jest.preset.js = jest.preset.js
+		nx.json = nx.json
+		package.json = package.json
+		pnpm-lock.yaml = pnpm-lock.yaml
+		README.md = README.md
+		tsconfig.base.json = tsconfig.base.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C4176E95-19F9-405F-BC76-EF99BB758F64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4176E95-19F9-405F-BC76-EF99BB758F64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4176E95-19F9-405F-BC76-EF99BB758F64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4176E95-19F9-405F-BC76-EF99BB758F64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BDA7CBF-25C8-4997-BE2F-145A3F214733}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BDA7CBF-25C8-4997-BE2F-145A3F214733}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BDA7CBF-25C8-4997-BE2F-145A3F214733}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BDA7CBF-25C8-4997-BE2F-145A3F214733}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85D606DD-D207-499C-8F88-614960DE906A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85D606DD-D207-499C-8F88-614960DE906A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85D606DD-D207-499C-8F88-614960DE906A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85D606DD-D207-499C-8F88-614960DE906A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42DF18F7-5A9A-4915-84C3-4CB80F66B635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42DF18F7-5A9A-4915-84C3-4CB80F66B635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42DF18F7-5A9A-4915-84C3-4CB80F66B635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42DF18F7-5A9A-4915-84C3-4CB80F66B635}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+	EndGlobalSection
+EndGlobal
