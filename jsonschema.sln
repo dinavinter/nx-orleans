@@ -22,6 +22,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{D60D9083-A
 		pnpm-lock.yaml = pnpm-lock.yaml
 		README.md = README.md
 		tsconfig.base.json = tsconfig.base.json
+		dotnet-tools.json = .config/dotnet-tools.json
+		docfx.json = docfx.json
 	EndProjectSection
 EndProject
 Global

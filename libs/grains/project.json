@@ -20,7 +20,10 @@
     },
     "lint": {
       "executor": "@nx-dotnet/core:format"
-    }
-  },
+    },
+    "docfx":{
+      "executor": "@schemaland/net-doc-plugin:docfx"
+
+  }},
   "projectType": "library"
 }

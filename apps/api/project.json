@@ -38,7 +38,8 @@
       "executor": "@nx-dotnet/core:update-swagger",
       "outputs": ["{workspaceRoot}/generated/api-swagger/swagger.json"],
       "options": {
-        "output": "generated/api-swagger/swagger.json"
+        "output": "generated/api-swagger/swagger.json",
+        "useNxPluginOpenAPI": true
       },
       "dependsOn": ["build"]
     }
