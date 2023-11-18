@@ -1,0 +1,32 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "src": "libs/grain-controllers",
+          "files": ["**.csproj"],
+          "exclude": ["**/bin/**", "**/obj/**", "**/[Tt]ests/**"]
+        }
+      ],
+      "dest": "generated/docs/references/grain-controllers",
+      "includePrivateMembers": false,
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "noRestore": false,
+      "namespaceLayout": "flattened"
+    }
+  ],
+  "build": {
+    "content": ["generated/docs/references/grain-controllers/**/*.{md|yml}"],
+    "resource": ["**/media/**"],
+    "dest": "generated/docs/site/_site",
+    "globalMetadata": {
+      "_appTitle": "QuickStart Documentation",
+      "_appName": "QUickStart Documentation",
+      "_appLogoPath": "images/logo.png",
+      "_appFaviconPath": "images/favicon.ico",
+      "_enableSearch": true,
+      "_enableNewTab": true
+    }
+  }
+}

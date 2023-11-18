@@ -1,0 +1,24 @@
+### YamlMime:ManagedReference
+items:
+  - uid: SchemaLand.Api.Implementation
+    commentId: N:SchemaLand.Api.Implementation
+    id: Implementation
+    parent: SchemaLand.Api
+    children:
+      - SchemaLand.Api.Implementation.CalculatorGrain
+    langs:
+      - csharp
+      - vb
+    name: SchemaLand.Api.Implementation
+    nameWithType: SchemaLand.Api.Implementation
+    fullName: SchemaLand.Api.Implementation
+    type: Namespace
+    assemblies:
+      - grains
+references:
+  - uid: SchemaLand.Api.Implementation.CalculatorGrain
+    commentId: T:SchemaLand.Api.Implementation.CalculatorGrain
+    href: SchemaLand.Api.Implementation.CalculatorGrain.html
+    name: CalculatorGrain
+    nameWithType: CalculatorGrain
+    fullName: SchemaLand.Api.Implementation.CalculatorGrain

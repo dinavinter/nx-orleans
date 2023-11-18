@@ -1,0 +1,17 @@
+{
+  "name": "@schemaland/net-doc-plugin",
+  "version": "0.0.1",
+  "dependencies": {
+    "@nx-dotnet/dotnet": "^2.1.1",
+    "@nx-dotnet/utils": "^2.1.1",
+    "@nx/devkit": "17.1.2",
+    "fast-glob": "^3.3.2",
+    "plugin:executor": "link:@nx/plugin:executor",
+    "tslib": "^2.3.0"
+  },
+  "type": "commonjs",
+  "main": "./src/index.js",
+  "typings": "./src/index.d.ts",
+  "generators": "./generators.json",
+  "executors": "./executors.json"
+}

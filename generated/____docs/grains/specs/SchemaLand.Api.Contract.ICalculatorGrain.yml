@@ -1,0 +1,225 @@
+### YamlMime:ManagedReference
+items:
+  - uid: SchemaLand.Api.Contract.ICalculatorGrain
+    commentId: T:SchemaLand.Api.Contract.ICalculatorGrain
+    id: ICalculatorGrain
+    parent: SchemaLand.Api.Contract
+    children:
+      - SchemaLand.Api.Contract.ICalculatorGrain.Add(System.Int32,System.Int32)
+    langs:
+      - csharp
+      - vb
+    name: ICalculatorGrain
+    nameWithType: ICalculatorGrain
+    fullName: SchemaLand.Api.Contract.ICalculatorGrain
+    type: Interface
+    source:
+      remote:
+        path: libs/grains/Contract/ICalculatorGrain.cs
+        branch: main
+        repo: https://github.com/dinavinter/nx-orleans.git
+      id: ICalculatorGrain
+      path: ../../../libs/grains/Contract/ICalculatorGrain.cs
+      startLine: 5
+    assemblies:
+      - grains
+    namespace: SchemaLand.Api.Contract
+    syntax:
+      content: 'public interface ICalculatorGrain : IGrainWithGuidKey, IGrain, IAddressable'
+      content.vb: Public Interface ICalculatorGrain Inherits IGrainWithGuidKey, IGrain, IAddressable
+  - uid: SchemaLand.Api.Contract.ICalculatorGrain.Add(System.Int32,System.Int32)
+    commentId: M:SchemaLand.Api.Contract.ICalculatorGrain.Add(System.Int32,System.Int32)
+    id: Add(System.Int32,System.Int32)
+    parent: SchemaLand.Api.Contract.ICalculatorGrain
+    langs:
+      - csharp
+      - vb
+    name: Add(int, int)
+    nameWithType: ICalculatorGrain.Add(int, int)
+    fullName: SchemaLand.Api.Contract.ICalculatorGrain.Add(int, int)
+    type: Method
+    source:
+      remote:
+        path: libs/grains/Contract/ICalculatorGrain.cs
+        branch: main
+        repo: https://github.com/dinavinter/nx-orleans.git
+      id: Add
+      path: ../../../libs/grains/Contract/ICalculatorGrain.cs
+      startLine: 13
+    assemblies:
+      - grains
+    namespace: SchemaLand.Api.Contract
+    summary: Adds two integers
+    example: []
+    syntax:
+      content: Task<int> Add(int l, int r)
+      parameters:
+        - id: l
+          type: System.Int32
+          description: Integer to Add
+        - id: r
+          type: System.Int32
+          description: Integer to Add
+      return:
+        type: System.Threading.Tasks.Task{System.Int32}
+        description: Sum of <see param="l"></see> and <see param="r"></see>
+      content.vb: Function Add(l As Integer, r As Integer) As Task(Of Integer)
+    overload: SchemaLand.Api.Contract.ICalculatorGrain.Add*
+    nameWithType.vb: ICalculatorGrain.Add(Integer, Integer)
+    fullName.vb: SchemaLand.Api.Contract.ICalculatorGrain.Add(Integer, Integer)
+    name.vb: Add(Integer, Integer)
+references:
+  - uid: SchemaLand.Api.Contract
+    commentId: N:SchemaLand.Api.Contract
+    href: SchemaLand.html
+    name: SchemaLand.Api.Contract
+    nameWithType: SchemaLand.Api.Contract
+    fullName: SchemaLand.Api.Contract
+    spec.csharp:
+      - uid: SchemaLand
+        name: SchemaLand
+        href: SchemaLand.html
+      - name: .
+      - uid: SchemaLand.Api
+        name: Api
+        href: SchemaLand.Api.html
+      - name: .
+      - uid: SchemaLand.Api.Contract
+        name: Contract
+        href: SchemaLand.Api.Contract.html
+    spec.vb:
+      - uid: SchemaLand
+        name: SchemaLand
+        href: SchemaLand.html
+      - name: .
+      - uid: SchemaLand.Api
+        name: Api
+        href: SchemaLand.Api.html
+      - name: .
+      - uid: SchemaLand.Api.Contract
+        name: Contract
+        href: SchemaLand.Api.Contract.html
+  - uid: SchemaLand.Api.Contract.ICalculatorGrain.Add*
+    commentId: Overload:SchemaLand.Api.Contract.ICalculatorGrain.Add
+    href: SchemaLand.Api.Contract.ICalculatorGrain.html#SchemaLand_Api_Contract_ICalculatorGrain_Add_System_Int32_System_Int32_
+    name: Add
+    nameWithType: ICalculatorGrain.Add
+    fullName: SchemaLand.Api.Contract.ICalculatorGrain.Add
+  - uid: System.Int32
+    commentId: T:System.Int32
+    parent: System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.int32
+    name: int
+    nameWithType: int
+    fullName: int
+    nameWithType.vb: Integer
+    fullName.vb: Integer
+    name.vb: Integer
+  - uid: System.Threading.Tasks.Task{System.Int32}
+    commentId: T:System.Threading.Tasks.Task{System.Int32}
+    parent: System.Threading.Tasks
+    definition: System.Threading.Tasks.Task`1
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+    name: Task<int>
+    nameWithType: Task<int>
+    fullName: System.Threading.Tasks.Task<int>
+    nameWithType.vb: Task(Of Integer)
+    fullName.vb: System.Threading.Tasks.Task(Of Integer)
+    name.vb: Task(Of Integer)
+    spec.csharp:
+      - uid: System.Threading.Tasks.Task`1
+        name: Task
+        isExternal: true
+        href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+      - name: <
+      - uid: System.Int32
+        name: int
+        isExternal: true
+        href: https://learn.microsoft.com/dotnet/api/system.int32
+      - name: '>'
+    spec.vb:
+      - uid: System.Threading.Tasks.Task`1
+        name: Task
+        isExternal: true
+        href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+      - name: (
+      - name: Of
+      - name: ' '
+      - uid: System.Int32
+        name: Integer
+        isExternal: true
+        href: https://learn.microsoft.com/dotnet/api/system.int32
+      - name: )
+  - uid: System
+    commentId: N:System
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+    name: System
+    nameWithType: System
+    fullName: System
+  - uid: System.Threading.Tasks.Task`1
+    commentId: T:System.Threading.Tasks.Task`1
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+    name: Task<TResult>
+    nameWithType: Task<TResult>
+    fullName: System.Threading.Tasks.Task<TResult>
+    nameWithType.vb: Task(Of TResult)
+    fullName.vb: System.Threading.Tasks.Task(Of TResult)
+    name.vb: Task(Of TResult)
+    spec.csharp:
+      - uid: System.Threading.Tasks.Task`1
+        name: Task
+        isExternal: true
+        href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+      - name: <
+      - name: TResult
+      - name: '>'
+    spec.vb:
+      - uid: System.Threading.Tasks.Task`1
+        name: Task
+        isExternal: true
+        href: https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1
+      - name: (
+      - name: Of
+      - name: ' '
+      - name: TResult
+      - name: )
+  - uid: System.Threading.Tasks
+    commentId: N:System.Threading.Tasks
+    isExternal: true
+    href: https://learn.microsoft.com/dotnet/api/system
+    name: System.Threading.Tasks
+    nameWithType: System.Threading.Tasks
+    fullName: System.Threading.Tasks
+    spec.csharp:
+      - uid: System
+        name: System
+        isExternal: true
+        href: https://learn.microsoft.com/dotnet/api/system
+      - name: .
+      - uid: System.Threading
+        name: Threading
+        isExternal: true
+        href: https://learn.microsoft.com/dotnet/api/system.threading
+      - name: .
+      - uid: System.Threading.Tasks
+        name: Tasks
+        isExternal: true
+        href: https://learn.microsoft.com/dotnet/api/system.threading.tasks
+    spec.vb:
+      - uid: System
+        name: System
+        isExternal: true
+        href: https://learn.microsoft.com/dotnet/api/system
+      - name: .
+      - uid: System.Threading
+        name: Threading
+        isExternal: true
+        href: https://learn.microsoft.com/dotnet/api/system.threading
+      - name: .
+      - uid: System.Threading.Tasks
+        name: Tasks
+        isExternal: true
+        href: https://learn.microsoft.com/dotnet/api/system.threading.tasks

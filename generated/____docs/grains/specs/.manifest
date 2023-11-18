@@ -1,0 +1,9 @@
+{
+  "SchemaLand.Api": "SchemaLand.Api.yml",
+  "SchemaLand.Api.Contract": "SchemaLand.Api.Contract.yml",
+  "SchemaLand.Api.Contract.ICalculatorGrain": "SchemaLand.Api.Contract.ICalculatorGrain.yml",
+  "SchemaLand.Api.Contract.ICalculatorGrain.Add(System.Int32,System.Int32)": "SchemaLand.Api.Contract.ICalculatorGrain.yml",
+  "SchemaLand.Api.Implementation": "SchemaLand.Api.Implementation.yml",
+  "SchemaLand.Api.Implementation.CalculatorGrain": "SchemaLand.Api.Implementation.CalculatorGrain.yml",
+  "SchemaLand.Api.Implementation.CalculatorGrain.Add(System.Int32,System.Int32)": "SchemaLand.Api.Implementation.CalculatorGrain.yml"
+}

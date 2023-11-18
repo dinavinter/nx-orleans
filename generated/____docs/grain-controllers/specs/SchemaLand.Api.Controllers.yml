@@ -1,0 +1,23 @@
+### YamlMime:ManagedReference
+items:
+  - uid: SchemaLand.Api.Controllers
+    commentId: N:SchemaLand.Api.Controllers
+    id: SchemaLand.Api.Controllers
+    children:
+      - SchemaLand.Api.Controllers.CalculatorController
+    langs:
+      - csharp
+      - vb
+    name: SchemaLand.Api.Controllers
+    nameWithType: SchemaLand.Api.Controllers
+    fullName: SchemaLand.Api.Controllers
+    type: Namespace
+    assemblies:
+      - grain-controllers
+references:
+  - uid: SchemaLand.Api.Controllers.CalculatorController
+    commentId: T:SchemaLand.Api.Controllers.CalculatorController
+    href: SchemaLand.Api.Controllers.CalculatorController.html
+    name: CalculatorController
+    nameWithType: CalculatorController
+    fullName: SchemaLand.Api.Controllers.CalculatorController

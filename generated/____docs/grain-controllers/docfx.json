@@ -1,0 +1,45 @@
+{
+  "metadata": [
+    {
+      "src": [
+        {
+          "files": [
+            "**.csproj"
+          ],
+          "exclude": [
+            "**/bin/**",
+            "**/obj/**",
+            "**/[Tt]ests/**"
+          ],
+          "src": "/Users/I347305/Src/orleans/nx/schemaland/libs/grain-controllers"
+        }
+      ],
+      "dest": "/Users/I347305/Src/orleans/nx/schemaland/generated/docs/grain-controllers/specs",
+      "includePrivateMembers": false,
+      "disableGitFeatures": false,
+      "disableDefaultFilter": false,
+      "noRestore": false,
+      "namespaceLayout": "nested",
+      "enumSortOrder": "declaringOrder"
+    }
+  ],
+  "output": "/Users/I347305/Src/orleans/nx/schemaland/generated/docs/grain-controllers/specs",
+  "build": {
+    "content": [
+      {
+        "files": [
+          "**/*.{md,yml}"
+        ]
+      }
+    ],
+    "dest": "_site",
+    "globalMetadata": {
+      "_appTitle": "QuickStart Documentation",
+      "_appName": "QUickStart Documentation",
+      "_appLogoPath": "images/logo.png",
+      "_appFaviconPath": "images/favicon.ico",
+      "_enableSearch": true,
+      "_enableNewTab": true
+    }
+  }
+}

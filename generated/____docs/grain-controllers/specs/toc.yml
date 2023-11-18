@@ -1,0 +1,8 @@
+### YamlMime:TableOfContent
+items:
+  - uid: SchemaLand.Api.Controllers
+    name: SchemaLand.Api.Controllers
+    items:
+      - uid: SchemaLand.Api.Controllers.CalculatorController
+        name: CalculatorController
+memberLayout: SamePage

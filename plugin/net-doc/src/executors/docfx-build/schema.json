@@ -1,0 +1,244 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "id": "net-doc-executor",
+
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "src": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "src": {
+                      "type": "string"
+                    },
+                    "files": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "exclude": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            },
+            "dest": {
+              "type": "string"
+            },
+            "includePrivateMembers": {
+              "type": "boolean"
+            },
+            "disableGitFeatures": {
+              "type": "boolean"
+            },
+            "disableDefaultFilter": {
+              "type": "boolean"
+            },
+            "noRestore": {
+              "type": "boolean"
+            },
+            "namespaceLayout": {
+              "type": "string"
+            }
+          }
+
+        }
+      ]
+    },
+    "build": {
+      "type": "object",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "files": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "resource": {
+          "type": "array",
+          "items": [
+            {
+              "type": "object",
+              "properties": {
+                "files": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "files"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "files": {
+                  "type": "array",
+                  "items": [
+                    {
+                      "type": "string"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "files"
+              ]
+            }
+          ]
+        },
+        "dest": {
+          "type": "string"
+        },
+        "globalMetadata": {
+          "type": "object",
+          "properties": {
+            "_appTitle": {
+              "type": "string"
+            },
+            "_appName": {
+              "type": "string"
+            },
+            "_appLogoPath": {
+              "type": "string"
+            },
+            "_appFaviconPath": {
+              "type": "string"
+            },
+            "_enableSearch": {
+              "type": "boolean"
+            },
+            "_enableNewTab": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "_appTitle",
+            "_appName",
+            "_appLogoPath",
+            "_appFaviconPath",
+            "_enableSearch",
+            "_enableNewTab"
+          ]
+        },
+        "template": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "globalMetadataFiles": {
+          "type": "array",
+          "items": {}
+        },
+        "fileMetadataFiles": {
+          "type": "array",
+          "items": {}
+        },
+        "postProcessors": {
+          "type": "array",
+          "items": {}
+        },
+        "noLangKeyword": {
+          "type": "boolean"
+        },
+        "keepFileLink": {
+          "type": "boolean"
+        },
+        "disableGitFeatures": {
+          "type": "boolean"
+        },
+        "xrefService": {
+          "type": "array",
+          "items": [
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "markdownEngineName": {
+          "type": "string"
+        },
+        "markdownEngineProperties": {
+          "type": "object",
+          "properties": {
+            "markdigExtensions": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "string"
+                }
+              ]
+            }
+          }
+        }
+      }
+
+    }
+  }
+}
