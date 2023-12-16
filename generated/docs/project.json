@@ -3,16 +3,44 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "targets": {
-    "build": {
+    "noop": {
       "executor": "nx:noop",
-      "outputs": ["generated/docs"]
+      "outputs": ["{projectRoot}"]
     },
     "doc": {
       "executor": "@schemaland/net-doc-plugin:docfx-build",
+      "outputs": ["{projectRoot}/_site"],
+      "inputs": ["{projectRoot}/docfx.json", "{projectRoot}/references/**/*"],
+      "dependsOn": ["^doc" ,"toc"],
       "options": {
-        "config": "docfx.json",
-        "inputs": ["libs/grain-controllers"]
+        "output": "{projectRoot}/_site",
+        "inputs": ["{projectRoot}/references/**/*"],
+        "config": "{projectRoot}/docfx.json",
+        "build": {
+          "content": ["references/**/*.{md|yml}"],
+          "resource": ["**/media/**"],
+          "globalMetadata": {
+            "_appTitle": "NX + Net + Orleans + Docfx",
+            "_appName": "NX + Net + Orleans + Docfx",
+            "_appLogoPath": "images/logo.png",
+            "_appFaviconPath": "images/favicon.ico",
+            "_enableSearch": true,
+            "_enableNewTab": true
+          }
+        }
       }
+    },
+    "toc": {
+      "executor": "@schemaland/net-doc-plugin:toc",
+      "options": {
+        "input": "{projectRoot}/references",
+        "output": "{projectRoot}/references",
+        "verbose": true,
+        "index": true
+      }
+    },
+    "serve": {
+      "command": "dotnet docfx serve"
     }
   }
 }

@@ -21,9 +21,17 @@
     "lint": {
       "executor": "@nx-dotnet/core:format"
     },
-    "docfx":{
+    "docfx": {
       "executor": "@schemaland/net-doc-plugin:docfx"
-
-  }},
+    },
+    "doc": {
+      "executor": "@schemaland/net-doc-plugin:docfx",
+      "options": {
+        "output": "generated/docs/references/grains",
+        "input": "libs/grains",
+        "outputProject": "docs"
+      }
+    }
+  },
   "projectType": "library"
 }

@@ -1,8 +1,0 @@
-{
-  "SchemaLand.Api.Controllers": "SchemaLand.Api.Controllers.yml",
-  "SchemaLand.Api.Controllers.CalculatorController": "SchemaLand.Api.Controllers.CalculatorController.yml",
-  "SchemaLand.Api.Controllers.CalculatorController.#ctor(Microsoft.Extensions.Logging.ILogger{SchemaLand.Api.Controllers.CalculatorController},Orleans.IClusterClient)": "SchemaLand.Api.Controllers.CalculatorController.yml",
-  "SchemaLand.Api.Controllers.CalculatorController.Add(System.Int32,System.Int32)": "SchemaLand.Api.Controllers.CalculatorController.yml",
-  "SchemaLand.Api.Controllers.CalculatorController.Logger": "SchemaLand.Api.Controllers.CalculatorController.yml",
-  "SchemaLand.Api.Controllers.CalculatorController.OrleansClient": "SchemaLand.Api.Controllers.CalculatorController.yml"
-}

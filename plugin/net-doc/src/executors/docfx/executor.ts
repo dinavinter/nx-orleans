@@ -29,14 +29,12 @@ export const cli = 'docfx';
 function normalizeOptions(
   opts: Partial<DocfxExecutorSchema>,
   project: ProjectConfiguration,
-  csProjFilePath: string,
   projectName: string,
 ): DocfxExecutorSchema {
   console.log("normalizeOptions" , opts, project);
   const output = opts.output ?? resolve(workspaceRoot, `generated/docs/${projectName}/specs`);
   const input = resolve(workspaceRoot,opts.input) ?? resolve(workspaceRoot,`${project.root}`);
-
-  const metadata = opts.metadata?? [{
+   const metadata = opts.metadata?? [{
      src: [{
        "files": ["**.csproj"],
        "exclude": ["**/bin/**", "**/obj/**", "**/[Tt]ests/**"],
@@ -51,29 +49,10 @@ function normalizeOptions(
     "namespaceLayout": "nested",
     "enumSortOrder": "declaringOrder"
   }];
-const build = {
-  "content": [
-    {
-      "files": [
-        "**/*.{md,yml}",
-       ]
-    }
-  ],
-  "dest": "_site",
-  "globalMetadata": {
-    "_appTitle": "QuickStart Documentation",
-    "_appName": "QUickStart Documentation",
-    "_appLogoPath": "images/logo.png",
-    "_appFaviconPath": "images/favicon.ico",
-    "_enableSearch": true,
-    "_enableNewTab": true
-  }
-};
 
   return {
      metadata: metadata,
     output:output,
-    build:build,
      ...opts
   };
 }
@@ -91,8 +70,7 @@ export default async function runExecutor(
   const options = normalizeOptions(
     schema,
     nxProjectConfiguration,
-    csProjFilePath,
-    context.projectName as string,
+    csProjFilePath
   );
 
   // dotnetClient.cwd = options.output;
@@ -104,7 +82,9 @@ export default async function runExecutor(
     mkdirSync(outputDirectory, { recursive: true });
   }
 
-  const config=options.config ?? resolve(outputDirectory, 'docfx.json');
+  const config=options.config ?? resolve(outputDirectory, 'temp-docfx.json');
+  console.log("input: ", options.input, "\toutput:", options.output, "\tconfig:", config, "\toutputDirectory:", outputDirectory);
+
   fs.writeFileSync(config, JSON.stringify(options, null, 2));
     if (!options.skipInstall) {
     ensureCLIToolInstalled(
@@ -123,6 +103,11 @@ export default async function runExecutor(
     options.format ?? "Markdown"
 
    ]);
+
+    if(existsSync(resolve(outputDirectory, 'temp-docfx.json'))) {
+      fs.unlinkSync(resolve(outputDirectory, 'temp-docfx.json'));
+    }
+
 
   try {
     const isInstalled = require.resolve('prettier');

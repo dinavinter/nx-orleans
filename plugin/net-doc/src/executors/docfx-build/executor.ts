@@ -4,7 +4,6 @@ import {ExecutorContext, logger, ProjectConfiguration, workspaceRoot} from "@nx/
 import {DotNetClient, dotnetFactory} from "@nx-dotnet/dotnet";
 import {
   getExecutedProjectConfiguration,
-  getProjectFileForNxProject,
   readInstalledDotnetToolVersion
 } from "@nx-dotnet/utils";
 import {dirname, resolve} from "path";
@@ -18,37 +17,20 @@ export const cli = 'docfx';
 function normalizeOptions(
   opts: Partial<DocfxExecutorSchema>,
   project: ProjectConfiguration,
-  csProjFilePath: string,
   projectName: string,
-): DocfxExecutorSchema {
+): DocfxBuildExecutorSchema {
   console.log("normalizeOptions" , opts, project);
-  const output = opts.output ?? resolve(workspaceRoot, `generated/docs/${projectName}/specs`);
-  const input = opts.input ?? `${project.root}`;
+  const output = opts.output ?? resolve(workspaceRoot, `generated/${projectName}/_site`);
+  const input = opts.input ?? [`${project.root}/**/*.{md,yml}`]
 
-  const metadata = opts.metadata?? [{
-    src: [{
-      "files": ["**.csproj"],
-      "exclude": ["**/bin/**", "**/obj/**", "**/[Tt]ests/**"],
-      src: resolve(workspaceRoot, input)
-
-    }],
-    "dest": output,
-    "includePrivateMembers": false,
-    "disableGitFeatures": false,
-    "disableDefaultFilter": false,
-    "noRestore": false,
-    "namespaceLayout": "nested",
-    "enumSortOrder": "declaringOrder"
-  }];
-  const build = {
+  const build = opts.build?? {
     "content": [
       {
         "files": [
-          "**/*.{md,yml}",
+          input
         ]
       }
     ],
-    "dest": "_site",
     "globalMetadata": {
       "_appTitle": "QuickStart Documentation",
       "_appName": "QUickStart Documentation",
@@ -60,8 +42,7 @@ function normalizeOptions(
   };
 
   return {
-    metadata: metadata,
-    output:output,
+    output,
     build:build,
     ...opts
   };
@@ -74,18 +55,15 @@ export default async function runExecutor(
   dotnetClient: DotNetClient = new DotNetClient(dotnetFactory(), workspaceRoot),
 ) {
   const nxProjectConfiguration = getExecutedProjectConfiguration(context);
-  const csProjFilePath = await getProjectFileForNxProject(
-    nxProjectConfiguration,
-  );
-  const projectDirectory = resolve(workspaceRoot, nxProjectConfiguration.root);
-  const options = normalizeOptions(
+   const projectDirectory = resolve(workspaceRoot, nxProjectConfiguration.root);
+  const options  = normalizeOptions(
     schema,
     nxProjectConfiguration,
-    csProjFilePath,
     context.projectName as string,
   );
 
-  dotnetClient.cwd = projectDirectory;
+  // dotnetClient.cwd = projectDirectory;
+  dotnetClient.cwd = workspaceRoot;
 
 
   const outputDirectory = dirname(options.output);
@@ -93,8 +71,11 @@ export default async function runExecutor(
     mkdirSync(outputDirectory, { recursive: true });
   }
 
-  const config=resolve(outputDirectory, 'docfx.json');
-  fs.writeFileSync(config, JSON.stringify(options, null, 2));
+  const config=options.config ?? resolve(outputDirectory, 'docfx.json');
+  if (!existsSync(config)) {
+    fs.writeFileSync(config, JSON.stringify(options, null, 2));
+  }
+   console.log("workspace-root: ", workspaceRoot, "\tinput: ", options.input, "\toutput:", options.output, "\tconfig:", config, "\toutputDirectory:", outputDirectory);
 
   if (!options.skipInstall) {
     ensureCLIToolInstalled(
@@ -108,9 +89,7 @@ export default async function runExecutor(
     'build',
     config,
     "-o",
-    options.output,
-    "--outputFormat",
-    "Mref"
+    options.output
 
   ]);
 

@@ -9,6 +9,11 @@
       "implementation": "./src/executors/docfx-build/executor",
       "schema": "./src/executors/docfx-build/schema.json",
       "description": "docfx-build executor"
+    },
+    "toc": {
+      "implementation": "./src/executors/toc/executor",
+      "schema": "./src/executors/toc/schema.json",
+      "description": "toc executor"
     }
   }
 }

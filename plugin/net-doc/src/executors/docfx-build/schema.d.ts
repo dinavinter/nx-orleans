@@ -1,7 +1,8 @@
 export interface DocfxBuildExecutorSchema {
   skipInstall?: Boolean;
-  metadata: any;
-  build?:any;
+  metadata?: any;
+  config?: string;
+  build:any;
   output?: string;
   input?: string;
 } // eslint-disable-line
