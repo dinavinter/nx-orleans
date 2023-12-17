@@ -5,10 +5,10 @@
       "schema": "./src/executors/docfx/schema.json",
       "description": "docfx executor"
     },
-    "docfx-build": {
-      "implementation": "./src/executors/docfx-build/executor",
-      "schema": "./src/executors/docfx-build/schema.json",
-      "description": "docfx-build executor"
+    "build": {
+      "implementation": "./src/executors/build/executor",
+      "schema": "./src/executors/build/schema.json",
+      "description": "build executor"
     },
     "toc": {
       "implementation": "./src/executors/toc/executor",

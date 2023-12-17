@@ -8,10 +8,16 @@
       "outputs": ["{projectRoot}"]
     },
     "doc": {
-      "executor": "@schemaland/net-doc-plugin:docfx-build",
+      "executor": "@nx-net/docs:build",
       "outputs": ["{projectRoot}/_site"],
       "inputs": ["{projectRoot}/docfx.json", "{projectRoot}/references/**/*"],
-      "dependsOn": ["^doc" ,"toc"],
+      "dependsOn": [{
+        "target": "doc",
+        "dependencies": true
+       },{
+        "target": "toc",
+        "dependencies": true
+      }],
       "options": {
         "output": "{projectRoot}/_site",
         "inputs": ["{projectRoot}/references/**/*"],
@@ -31,13 +37,17 @@
       }
     },
     "toc": {
-      "executor": "@schemaland/net-doc-plugin:toc",
+      "executor": "@nx-net/docs:toc",
       "options": {
         "input": "{projectRoot}/references",
         "output": "{projectRoot}/references",
         "verbose": true,
         "index": true
-      }
+      },
+      "dependsOn": [{
+        "target": "doc",
+        "dependencies": true
+      }]
     },
     "serve": {
       "command": "dotnet docfx serve"

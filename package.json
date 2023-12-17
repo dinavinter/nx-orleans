@@ -10,10 +10,7 @@
     "codegen": "nx run-many -t codegen",
     "serve": "nx run-many -t serve",
     "dotnet:add": "nx g @nx-dotnet/core:nuget-reference",
-    "docgen": "nx run-many -t doc",
-    "docfx": "nx run-many -t docfx",
-
-    "doc": "npx nx g @nx-dotnet/nxdoc:generate-docs --outputPath docs --project grains"
+    "doc": "nx run-many -t doc"
   },
   "private": true,
   "devDependencies": {

@@ -22,7 +22,7 @@ export async function docfxGenerator(
   const site = `${docsRoot}/site`;
   project.targets ??= {};
   project.targets.doc = {
-    executor: '@schemaland/net-doc-plugin:docfx',
+    executor: '@nx-net/docs:docfx',
     options: {
       output: reference,
       input: project.root,
@@ -43,7 +43,7 @@ export async function docfxGenerator(
         outputs: [docsPath],
       };
       docsProject.targets.doc ??= {
-        executor: '@schemaland/net-doc-plugin:docfx',
+        executor: '@nx-net/docs:docfx',
         options: {
           output: reference,
           inputs: [] as string[],
@@ -68,7 +68,7 @@ export async function docfxGenerator(
             outputs: [docsPath],
           },
           "doc": {
-            "executor": "@schemaland/net-doc-plugin:docfx-build",
+            "executor": "@nx-net/docs:build",
             options: {
               config: `docfx.json`,
               inputs: [project.root],

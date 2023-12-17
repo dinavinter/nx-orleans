@@ -1,5 +1,5 @@
 {
-  "name": "@schemaland/net-doc-plugin",
+  "name": "@nx-net/docs",
   "version": "0.0.1",
   "dependencies": {
     "@nx-dotnet/dotnet": "^2.1.1",
