@@ -1,9 +1,12 @@
 name: CI
 
 on:
+  workflow_dispatch:
+
   push:
     branches:
       - main
+      - docs
   pull_request:
 
 # Needed for nx-set-shas within nx-cloud-main.yml, when run on the main branch
