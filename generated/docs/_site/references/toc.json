@@ -1,0 +1,79 @@
+{
+  "items": [
+    { "name": "References", "href": "index.html", "topicHref": "index.html" },
+    {
+      "name": "Grain controllers",
+      "href": "grain-controllers/index.html",
+      "topicHref": "grain-controllers/index.html",
+      "items": [
+        {
+          "name": "Grain controllers",
+          "href": "grain-controllers/index.html",
+          "topicHref": "grain-controllers/index.html"
+        },
+        {
+          "name": "<a id=\"SchemaLand Api Controllers CalculatorController\"></a> Class CalculatorController",
+          "href": "grain-controllers/SchemaLand.Api.Controllers.CalculatorController.html",
+          "topicHref": "grain-controllers/SchemaLand.Api.Controllers.CalculatorController.html"
+        },
+        {
+          "name": "<a id=\"SchemaLand Api Controllers\"></a> Namespace SchemaLand.Api.Controllers",
+          "href": "grain-controllers/SchemaLand.Api.Controllers.html",
+          "topicHref": "grain-controllers/SchemaLand.Api.Controllers.html"
+        },
+        {
+          "name": "<a id=\"SchemaLand Api\"></a> Namespace SchemaLand.Api",
+          "href": "grain-controllers/SchemaLand.Api.html",
+          "topicHref": "grain-controllers/SchemaLand.Api.html"
+        },
+        {
+          "name": "<a id=\"SchemaLand\"></a> Namespace SchemaLand",
+          "href": "grain-controllers/SchemaLand.html",
+          "topicHref": "grain-controllers/SchemaLand.html"
+        }
+      ]
+    },
+    {
+      "name": "Grains",
+      "href": "grains/index.html",
+      "topicHref": "grains/index.html",
+      "items": [
+        {
+          "name": "Grains",
+          "href": "grains/index.html",
+          "topicHref": "grains/index.html"
+        },
+        {
+          "name": "<a id=\"SchemaLand Api Contract ICalculatorGrain\"></a> Interface ICalculatorGrain",
+          "href": "grains/SchemaLand.Api.Contract.ICalculatorGrain.html",
+          "topicHref": "grains/SchemaLand.Api.Contract.ICalculatorGrain.html"
+        },
+        {
+          "name": "<a id=\"SchemaLand Api Contract\"></a> Namespace SchemaLand.Api.Contract",
+          "href": "grains/SchemaLand.Api.Contract.html",
+          "topicHref": "grains/SchemaLand.Api.Contract.html"
+        },
+        {
+          "name": "<a id=\"SchemaLand Api Implementation CalculatorGrain\"></a> Class CalculatorGrain",
+          "href": "grains/SchemaLand.Api.Implementation.CalculatorGrain.html",
+          "topicHref": "grains/SchemaLand.Api.Implementation.CalculatorGrain.html"
+        },
+        {
+          "name": "<a id=\"SchemaLand Api Implementation\"></a> Namespace SchemaLand.Api.Implementation",
+          "href": "grains/SchemaLand.Api.Implementation.html",
+          "topicHref": "grains/SchemaLand.Api.Implementation.html"
+        },
+        {
+          "name": "<a id=\"SchemaLand Api\"></a> Namespace SchemaLand.Api",
+          "href": "grains/SchemaLand.Api.html",
+          "topicHref": "grains/SchemaLand.Api.html"
+        },
+        {
+          "name": "<a id=\"SchemaLand\"></a> Namespace SchemaLand",
+          "href": "grains/SchemaLand.html",
+          "topicHref": "grains/SchemaLand.html"
+        }
+      ]
+    }
+  ]
+}
