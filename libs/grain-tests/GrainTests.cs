@@ -28,9 +28,9 @@ namespace Test.SchemaLand.Api
     {
       private readonly ITestOutputHelper _output;
       private readonly TestCluster _cluster;
-        private readonly IAuthGuest _guest;
+      private readonly IAuthGuest _guest;
 
-        public GrainTests(ClusterFixture fixture, ITestOutputHelper output)
+      public GrainTests(ClusterFixture fixture, ITestOutputHelper output)
         {
           _output = output;
           // extract the TestCluster instance here and save it...
@@ -38,7 +38,7 @@ namespace Test.SchemaLand.Api
 
             // create a single grain to test if you want here, or alternately create a grain in the test itself
             _guest = _cluster.GrainFactory.GetGrain<IAuthGuest>(Guid.NewGuid());
-        }
+         }
 
         /// <summary>
         /// This is a traditional unit test.
@@ -136,62 +136,6 @@ namespace Test.SchemaLand.Api
               }));
             _output.WriteLine(JsonSerializer.Serialize(result));
 
-        }
-
-       [Fact]
-         public  void AuthenticationConnectState_Format()
-        {
-          var result = new AuthenticationConnectState( new GuestAuthenticationProperties(SampleRequest()));
-
-          _output.WriteLine(JsonSerializer.Serialize(result));
-         }
-
-         [Fact]
-         public void AuthorizationChallengeState_Format()
-         {
-           var result = new AuthenticationChallengeState( new GuestAuthenticationProperties(SampleRequest()));
-
-           _output.WriteLine(JsonSerializer.Serialize(result));
-         }
-
-        private static GuestAuthenticationRequest SampleRequest()
-        {
-          return new GuestAuthenticationRequest()
-          {
-            Id = new()
-            {
-              Format = "email",
-              Value = "jon@smith.com"
-            },
-            Profile = JsonDocument.Parse("""
-                                          {
-                                            "firstName": "Jon",
-                                            "lastName": "Smith",
-                                            "email": "jon@fo"
-                                          }
-                                         """).RootElement,
-            Data = JsonDocument.Parse("""
-                                       {
-                                         "campaign": "jon@fo",
-                                         "customer-id": "121213"
-                                       }
-                                      """).RootElement,
-
-            UserInfo = new Dictionary<string, JsonElement>()
-            {
-              ["communication"] = JsonDocument.Parse("""
-                                                      {
-                                                        "news":  { "status": "opt-in"  }
-                                                      }
-                                                     """).RootElement,
-              ["preferences"] = JsonDocument.Parse("""
-                                                    {
-                                                      "tos": {"isConsentGranted": true}
-                                                    }
-                                                   """).RootElement
-            }
-
-          };
         }
 
         // /// <summary>
