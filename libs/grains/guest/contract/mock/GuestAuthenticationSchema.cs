@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using grains.schema.contract;
 using Json.Schema;
 
-namespace grains.guest.contract;
+namespace grains.guest.contract.mock;
 
 public class GuestAuthenticationSchema
 {

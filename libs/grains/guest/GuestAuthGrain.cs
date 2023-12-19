@@ -2,6 +2,8 @@
 using System.Text.Json;
 using System.Threading.Tasks;
 using grains.guest.contract;
+using grains.guest.contract.mock;
+using grains.guest.contract.result;
 using grains.schema.contract;
 using Json.More;
 using Microsoft.AspNetCore.Http;

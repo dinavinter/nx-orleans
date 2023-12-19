@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using grains.guest.contract.result;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Orleans;
 

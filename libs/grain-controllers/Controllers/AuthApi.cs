@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using grains.guest.contract;
+using grains.guest.contract.result;
 using grains.schema.contract;
 using Json.More;
 using Microsoft.AspNetCore.Authentication;
@@ -60,7 +61,8 @@ public class AuthController : ControllerBase
   [HttpPost("guest")]
   [AllowAnonymous]
   [Consumes(typeof(GuestAuthenticationRequest), "application/json")]
-  [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(GuestAuthenticateResult))]
+  [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AuthenticationConnectState))]
+  [ProducesResponseType(StatusCodes.Status206PartialContent, Type = typeof(AuthenticationChallengeState))]
   [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblem))]
   [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(ProblemHttpResult))]
   public virtual async Task<Results<Ok<AuthenticationConnectState>, Ok<AuthenticationChallengeState>, ValidationProblem>> Guest(

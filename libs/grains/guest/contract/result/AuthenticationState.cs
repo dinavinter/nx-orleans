@@ -3,24 +3,42 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Authentication.OAuth.Claims;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
-using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace grains.guest.contract;
+namespace grains.guest.contract.result;
 
-public record GuestAuthenticateResult
+
+public record State(string Value, object Context);
+
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "value")]
+[JsonDerivedType(typeof(AuthenticationConnectState), typeDiscriminator: "connect")]
+[JsonDerivedType(typeof(AuthenticationChallengeState), typeDiscriminator: "challenge")]
+public record AuthenticationState
 {
-
-
-
-  public GuestAuthenticateResult(string state,  Challenge challenge, GuestAuthenticationProperties properties)
+  protected AuthenticationState(string State, Challenge challenge, GuestAuthenticationProperties properties)
   {
-    var Key= ECDsa.Create(ECCurve.NamedCurves.nistP256);
+    this.State = State;
+    ConnectToken = GetConnectToken(State, challenge, properties);
 
-    ConnectToken = new JsonWebTokenHandler().CreateToken(new SecurityTokenDescriptor()
+  }
+
+
+  [JsonPropertyName("connect_token")]
+  public string ConnectToken { get; set; }
+
+
+  [JsonPropertyName("state") ]
+  public string State { get; set; }
+
+
+
+  static string GetConnectToken(string state, Challenge challenge, GuestAuthenticationProperties properties)
+  {
+    var Key = ECDsa.Create(ECCurve.NamedCurves.nistP256);
+
+    return new JsonWebTokenHandler().CreateToken(new SecurityTokenDescriptor()
     {
       Issuer = "https://oauth2.gigya.com",
       Audience = $"https://accounts.{properties.Context.User.Dc}.gigya.com/identity.connect",
@@ -35,7 +53,7 @@ public record GuestAuthenticateResult
         ["dc"] = properties.Context.User.Dc,
         ["tid"] = properties.Context.Tenant.Tid,
         ["cid"] = "<context-id (random consist between two tokens)>",
-        ["jti"] = RandomNumberGenerator.GetInt32(0, int.MaxValue) ,
+        ["jti"] = RandomNumberGenerator.GetInt32(0, int.MaxValue),
         //todo: check if to add nonce
         // ["nonce"] = "<nonce>?",
 
@@ -51,34 +69,17 @@ public record GuestAuthenticateResult
 
         }), JsonClaimValueTypes.Json),
 
-       }, "guest")
+      }, "guest")
     });
-
   }
 
-
-  [JsonPropertyName("connect_token")]
-  public string ConnectToken { get; set; }
-
-
-
-  // [JsonPropertyName("states")]
-  // public object States => new
-  // {
-  //   challenge = Challenge,
-  //   connect = new
-  //   {
-  //     type = "api",
-  //     api = "identity.connect",
-  //     connect_token = ConnectToken,
-  //     id_token = SubjectToken,
-  //     dc = User.Dc
-  //   }
-  // };
-
-
-
-
 }
+
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+[JsonDerivedType(typeof(AuthenticationChallengeState.AuthenticationChallenge), typeDiscriminator: "authentication")]
+[JsonDerivedType(typeof(AuthenticationConnectState.GuestChallenge), typeDiscriminator: "identification")]
+public record Challenge();
+
+
 
 

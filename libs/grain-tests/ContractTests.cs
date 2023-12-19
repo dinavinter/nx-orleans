@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using grains.guest.contract;
+using grains.guest.contract.result;
 using Xunit;
 using Xunit.Abstractions;
 
