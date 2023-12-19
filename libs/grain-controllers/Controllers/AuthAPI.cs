@@ -58,7 +58,7 @@ public class AuthController : ControllerBase
 
   [HttpPost("guest")]
   [AllowAnonymous]
-  [Consumes(typeof(GuestAuthenticationRequest), "application/json")]
+  [Consumes(typeof(GuestAuthenticationRequest), "application/form-urlencoded")]
   [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AuthenticationConnectState))]
   [ProducesResponseType(StatusCodes.Status206PartialContent, Type = typeof(AuthenticationChallengeState))]
   [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblem))]

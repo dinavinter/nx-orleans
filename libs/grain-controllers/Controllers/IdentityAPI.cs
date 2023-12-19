@@ -45,10 +45,10 @@ public class AccountCreateRequest
 
 public class AccountUpsertRequest:IEndpointParameterMetadataProvider
 {
-  [JsonPropertyName("connection")]
+  [JsonPropertyName("connect_token")]
   public string ConnectionToken { get; set; }
 
-  [JsonPropertyName("authentication")]
+  [JsonPropertyName("authentication_token")]
   public string AuthenticationToken { get; set; }
   public static void PopulateMetadata(ParameterInfo parameter, EndpointBuilder builder)
   {

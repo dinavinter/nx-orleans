@@ -25,11 +25,11 @@ public record AuthenticationState
   }
 
 
-  [JsonPropertyName("connection")]
+  [JsonPropertyName("connect_token"), JsonPropertyOrder(9)]
   public string ConnectToken { get; set; }
 
 
-  [JsonPropertyName("state") ]
+  [JsonPropertyName("state" ), JsonPropertyOrder(0) ]
   public string State { get; set; }
 
 
@@ -62,12 +62,8 @@ public record AuthenticationState
       {
         new Claim("context", JsonSerializer.Serialize(properties.Context), JsonClaimValueTypes.Json),
         new Claim("state", state),
-        new Claim("states", JsonSerializer.Serialize(new
-        {
-          challenge,
-          connect = properties.ConnectDetails,
-
-        }), JsonClaimValueTypes.Json),
+        new Claim("challenge", JsonSerializer.Serialize(challenge), JsonClaimValueTypes.Json),
+        new Claim("connect", JsonSerializer.Serialize(properties.ConnectDetails), JsonClaimValueTypes.Json)
 
       }, "guest")
     });

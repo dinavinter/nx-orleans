@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Json.Schema.Generation;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,7 +12,7 @@ namespace grains.guest.contract.result;
 
 public record AuthenticationConnectState : AuthenticationState
 {
-  [JsonPropertyName("authentication_token")]
+  [JsonPropertyName("authentication_token"), JsonPropertyOrder(10)]
   public string SubjectToken { get; set; }
 
   public AuthenticationConnectState(GuestAuthenticationProperties properties) : base("connect", new GuestChallenge(),  properties)
@@ -52,9 +53,11 @@ public record AuthenticationConnectState : AuthenticationState
   public record GuestChallenge: Challenge
   {
     [JsonPropertyName("acr_values")]
-    public string AcrValues { get; set; } = "urn:gigya:gust";
+    [Const("urn:gigya:guest")]
+    public string AcrValues { get; set; } = "urn:gigya:guest";
 
     [JsonPropertyName("type")]
+    [Const("identification")]
     public string Type { get; set; } = "identification";
 
     [JsonPropertyName("handled")]
