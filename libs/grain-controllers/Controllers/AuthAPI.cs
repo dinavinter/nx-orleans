@@ -36,11 +36,9 @@ public class AuthController : ControllerBase
 
 
   /// <summary>
-  /// guest
+  /// guest authentication API , prepare a connection token for connect api, if the payload is allowed for guest also an authentication token is returned, otherwise a challenge is returned
   /// </summary>
-  /// <param name="request" ></param>
-  /// <returns ref="grains.guest.contract.GuestAuthenticateResult"></returns>
-  /// <remarks>
+   /// <remarks>
   /// Sample request:
   ///
   ///     POST /auth.guest
@@ -64,7 +62,6 @@ public class AuthController : ControllerBase
   [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AuthenticationConnectState))]
   [ProducesResponseType(StatusCodes.Status206PartialContent, Type = typeof(AuthenticationChallengeState))]
   [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblem))]
-  [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = typeof(ProblemHttpResult))]
   public virtual async Task<Results<Ok<AuthenticationConnectState>, Ok<AuthenticationChallengeState>, ValidationProblem>> Guest(
     [FromBody] GuestAuthenticationRequest request)
   {

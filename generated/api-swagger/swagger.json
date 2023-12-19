@@ -73,7 +73,7 @@
         }
       }
     },
-    "/api/Auth/guest": {
+    "/api/auth/guest": {
       "post": {
         "tags": ["Auth"],
         "requestBody": {
@@ -91,7 +91,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GuestAuthenticateResult"
+                  "$ref": "#/components/schemas/AuthenticationConnectState"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationChallengeState"
                 }
               }
             }
@@ -134,173 +144,99 @@
         "type": "object",
         "additionalProperties": false
       },
-      "AuthenticationProperties": {
+      "AuthenticationChallengeState": {
         "type": "object",
         "properties": {
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "AuthorizationDetail": {
-        "type": "object",
-        "properties": {
-          "type": {
+          "connect_token": {
             "type": "string",
             "nullable": true
           },
-          "acr_values": {
+          "state": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": {}
-      },
-      "Claim": {
-        "type": "object",
-        "properties": {
-          "issuer": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "originalIssuer": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
           },
           "properties": {
+            "$ref": "#/components/schemas/GuestAuthenticationProperties"
+          },
+          "challenge": {
+            "$ref": "#/components/schemas/Challenge"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthenticationConnectState": {
+        "type": "object",
+        "properties": {
+          "connect_token": {
+            "type": "string",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "nullable": true
+          },
+          "authentication_token": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Challenge": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ConnectAction": {
+        "type": "object",
+        "additionalProperties": {}
+      },
+      "Context": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "tenant": {
+            "$ref": "#/components/schemas/TenantDetails"
+          },
+          "device": {
+            "$ref": "#/components/schemas/DeviceDetails"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DeviceDetails": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "ip": {
+            "type": "string",
+            "nullable": true
+          },
+          "userAgent": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GuestAuthenticationProperties": {
+        "type": "object",
+        "properties": {
+          "request": {
+            "$ref": "#/components/schemas/GuestAuthenticationRequest"
+          },
+          "context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "connect": {
             "type": "object",
             "additionalProperties": {
-              "type": "string"
+              "$ref": "#/components/schemas/ConnectAction"
             },
-            "nullable": true,
-            "readOnly": true
-          },
-          "subject": {
-            "$ref": "#/components/schemas/ClaimsIdentity"
-          },
-          "type": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "value": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "valueType": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ClaimsIdentity": {
-        "type": "object",
-        "properties": {
-          "authenticationType": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "isAuthenticated": {
-            "type": "boolean",
-            "readOnly": true
-          },
-          "actor": {
-            "$ref": "#/components/schemas/ClaimsIdentity"
-          },
-          "bootstrapContext": {
-            "nullable": true
-          },
-          "claims": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Claim"
-            },
-            "nullable": true,
-            "readOnly": true
-          },
-          "label": {
-            "type": "string",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "nameClaimType": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "roleClaimType": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ClaimsPrincipal": {
-        "type": "object",
-        "properties": {
-          "claims": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Claim"
-            },
-            "nullable": true,
-            "readOnly": true
-          },
-          "identities": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ClaimsIdentity"
-            },
-            "nullable": true,
-            "readOnly": true
-          },
-          "identity": {
-            "$ref": "#/components/schemas/IIdentity"
-          }
-        },
-        "additionalProperties": false
-      },
-      "Credential": {
-        "type": "object",
-        "properties": {
-          "format": {
-            "type": "string",
-            "nullable": true
-          },
-          "dc": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "GuestAuthenticateResult": {
-        "type": "object",
-        "properties": {
-          "token": {
-            "$ref": "#/components/schemas/JsonWebToken"
-          },
-          "ticket": {
-            "$ref": "#/components/schemas/GuestAuthenticationTicket"
-          },
-          "type": {
-            "type": "string",
             "nullable": true
           }
         },
@@ -317,39 +253,37 @@
           },
           "data": {
             "nullable": true
+          },
+          "tenantId": {
+            "type": "string",
+            "nullable": true
+          },
+          "groupId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "siteId": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "partnerId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "deviceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ip": {
+            "type": "string",
+            "nullable": true
+          },
+          "userAgent": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": {}
-      },
-      "GuestAuthenticationTicket": {
-        "type": "object",
-        "properties": {
-          "authenticationScheme": {
-            "type": "string",
-            "nullable": true
-          },
-          "principal": {
-            "$ref": "#/components/schemas/ClaimsPrincipal"
-          },
-          "properties": {
-            "$ref": "#/components/schemas/AuthenticationProperties"
-          },
-          "subject": {
-            "$ref": "#/components/schemas/Credential"
-          },
-          "grant_type": {
-            "type": "string",
-            "nullable": true
-          },
-          "authorization_details": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/AuthorizationDetail"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
       },
       "HttpValidationProblemDetails": {
         "type": "object",
@@ -388,180 +322,6 @@
           }
         },
         "additionalProperties": {}
-      },
-      "IIdentity": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "authenticationType": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "isAuthenticated": {
-            "type": "boolean",
-            "readOnly": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "JsonWebToken": {
-        "type": "object",
-        "properties": {
-          "authenticationTag": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "ciphertext": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "encodedHeader": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "encryptedKey": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "encodedPayload": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "encodedSignature": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "encodedToken": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "initializationVector": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "innerToken": {
-            "$ref": "#/components/schemas/JsonWebToken"
-          },
-          "isEncrypted": {
-            "type": "boolean",
-            "readOnly": true
-          },
-          "isSigned": {
-            "type": "boolean",
-            "readOnly": true
-          },
-          "securityKey": {
-            "$ref": "#/components/schemas/SecurityKey"
-          },
-          "signingKey": {
-            "$ref": "#/components/schemas/SecurityKey"
-          },
-          "claims": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Claim"
-            },
-            "nullable": true,
-            "readOnly": true
-          },
-          "alg": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "cty": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "enc": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "kid": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "typ": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "x5t": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "zip": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "actor": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "audiences": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "nullable": true,
-            "readOnly": true
-          },
-          "azp": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "issuedAt": {
-            "type": "string",
-            "format": "date-time",
-            "readOnly": true
-          },
-          "issuer": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "id": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "subject": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "validFrom": {
-            "type": "string",
-            "format": "date-time",
-            "readOnly": true
-          },
-          "validTo": {
-            "type": "string",
-            "format": "date-time",
-            "readOnly": true
-          }
-        },
-        "additionalProperties": false
       },
       "ProblemDetails": {
         "type": "object",
@@ -609,13 +369,42 @@
         },
         "additionalProperties": false
       },
-      "SecurityKey": {
+      "TenantDetails": {
         "type": "object",
         "properties": {
-          "keySize": {
+          "site-id": {
             "type": "integer",
-            "format": "int32",
-            "readOnly": true
+            "format": "int64"
+          },
+          "group-id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "partner-id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "tenant-id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string",
+            "nullable": true
+          },
+          "dc": {
+            "type": "string",
+            "nullable": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

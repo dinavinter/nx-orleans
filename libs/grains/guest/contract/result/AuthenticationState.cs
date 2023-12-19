@@ -25,7 +25,7 @@ public record AuthenticationState
   }
 
 
-  [JsonPropertyName("connect_token")]
+  [JsonPropertyName("connection")]
   public string ConnectToken { get; set; }
 
 
