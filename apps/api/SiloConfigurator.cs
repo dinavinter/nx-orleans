@@ -39,6 +39,9 @@ class SiloConfigurator : Configuration.SiloConfigurator
   //public override Orleans.Hosting.ISiloBuilder ConfigureApplicationParts(Orleans.Hosting.ISiloBuilder siloBuilder) =>
   //    base.ConfigureApplicationParts(siloBuilder);
 
+
+
+
   public SiloConfigurator() : base()
   { }
 }

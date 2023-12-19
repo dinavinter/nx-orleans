@@ -10,7 +10,7 @@
       ],
       "options": {
         "configuration": "Debug",
-        "noDependencies": true
+        "noDependencies": true,
       },
       "configurations": {
         "production": {

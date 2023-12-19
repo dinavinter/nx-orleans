@@ -10,11 +10,13 @@
     "codegen": "nx run-many -t codegen",
     "serve": "nx run-many -t serve",
     "dotnet:add": "nx g @nx-dotnet/core:nuget-reference",
+    "dotnet:add:example": " pnpm dotnet:add --project grains --packageName Microsoft.IdentityModel.JsonWebTokens --version 6.33.0",
     "doc": "nx run-many -t doc"
   },
   "private": true,
   "devDependencies": {
     "@nx-dotnet/core": "^2.1.1",
+    "@nx-dotnet/nx-ghpages": "^2.1.2",
     "@nx-dotnet/nxdoc": "^2.1.1",
     "@nx/eslint": "17.1.2",
     "@nx/eslint-plugin": "17.1.2",

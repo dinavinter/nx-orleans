@@ -58,7 +58,6 @@ static class WebApiConfigurator
         options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
         options.JsonSerializerOptions.AllowTrailingCommas = true;
         options.JsonSerializerOptions.ReadCommentHandling = JsonCommentHandling.Skip;
-        options.JsonSerializerOptions.AllowTrailingCommas = true;
         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
       });
 

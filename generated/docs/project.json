@@ -49,6 +49,18 @@
         "dependencies": true
       }]
     },
+    "ghpages":{
+        "executor": "@nx-dotnet/nx-ghpages:deploy",
+        "options": {
+            "directory": "{projectRoot}/_site",
+            "remote": " https://github.com/dinavinter/nx-orleans",
+            "verbose": true,
+        },
+        "dependsOn": [{
+            "target": "doc",
+            "dependencies": true
+        }]
+        },
     "serve": {
       "command": "dotnet docfx serve"
     }

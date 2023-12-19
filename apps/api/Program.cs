@@ -1,4 +1,7 @@
+using api.Authz;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using SchemaLand.Api.Controllers;
 using static WebApiConfigurator;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +15,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks();
 builder.Services.AddApiServices();
+
+var authorization = builder.Services.AddAuthorizationBuilder();
+authorization.AddAccountAuthorizationPolicies();
+
+var authentication = builder.Services.AddAuthentication();
+authentication.AddGuestAuthentication();
+authentication.AddGigyaBearerAuthentication();
 
 var app = builder.Build();
 
@@ -33,13 +43,18 @@ if (app.Environment.IsDevelopment())
   app.UseSwaggerUI();
 }
 
+if (!app.Environment.IsDevelopment())
+{
+  app.UseHttpsRedirection();
 
-app.UseHttpsRedirection();
+}
 
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapIdentities();
 
 app.Run();
-
 

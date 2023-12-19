@@ -23,7 +23,8 @@
     "serve": {
       "executor": "@nx-dotnet/core:serve",
       "options": {
-        "configuration": "Debug"
+        "configuration": "Debug",
+        "launch-profile": "https"
       },
       "configurations": {
         "production": {

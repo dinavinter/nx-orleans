@@ -19,6 +19,9 @@ devDependencies:
   '@nx-dotnet/core':
     specifier: ^2.1.1
     version: 2.1.1(@nx/js@17.1.2)(eslint@8.46.0)(nx@17.1.2)(prettier@2.8.8)
+  '@nx-dotnet/nx-ghpages':
+    specifier: ^2.1.2
+    version: 2.1.2
   '@nx-dotnet/nxdoc':
     specifier: ^2.1.1
     version: 2.1.1(nx@17.1.2)
@@ -1895,6 +1898,10 @@ packages:
       tslib: 2.6.2
     transitivePeerDependencies:
       - nx
+    dev: true
+
+  /@nx-dotnet/nx-ghpages@2.1.2:
+    resolution: {integrity: sha512-5CPnTyA2syctooqDk3GyC2+tjmGdDA7rQqwSTQ5HCEFPauwtVpOfuyNF1t3Kwft9FelXkFyu7FdchyA91ej7YA==}
     dev: true
 
   /@nx-dotnet/nxdoc@2.1.1(nx@17.1.2):

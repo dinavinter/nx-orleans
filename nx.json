@@ -107,7 +107,8 @@
           "xunit": "2.6.1",
           "xunit.runner.visualstudio": "2.5.3",
           "coverlet.collector": "6.0.0",
-          "Microsoft.Orleans.CodeGenerator.MSBuild": "3.7.1"
+          "Microsoft.Orleans.CodeGenerator.MSBuild": "3.7.1",
+          "Microsoft.IdentityModel.JsonWebTokens": "7.0.3"
         },
         "inferredTargets": {
           "build": "build",

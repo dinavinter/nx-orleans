@@ -5,40 +5,93 @@
     "version": "1.0"
   },
   "paths": {
-    "/api/Calculator/{l}+{r}": {
-      "get": {
-        "tags": ["Calculator"],
-        "operationId": "Add",
+    "/{id}": {
+      "post": {
+        "tags": ["api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountUpdateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/new": {
+      "post": {
+        "tags": ["api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountCreateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/": {
+      "post": {
+        "tags": ["api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"],
+        "operationId": "AccountUpsert",
         "parameters": [
           {
-            "name": "l",
-            "in": "path",
-            "required": true,
-            "style": "simple",
+            "name": "apiKey",
+            "in": "query",
+            "style": "form",
             "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "r",
-            "in": "path",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
+              "type": "string"
             }
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AccountUpsertRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Auth/guest": {
+      "post": {
+        "tags": ["Auth"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GuestAuthenticationRequest"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "integer",
-                  "format": "int32"
+                  "$ref": "#/components/schemas/GuestAuthenticateResult"
                 }
               }
             }
@@ -48,7 +101,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProblemDetails"
+                  "$ref": "#/components/schemas/ValidationProblem"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemHttpResult"
                 }
               }
             }
@@ -59,6 +122,447 @@
   },
   "components": {
     "schemas": {
+      "AccountCreateRequest": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "AccountUpdateRequest": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "AccountUpsertRequest": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "AuthenticationProperties": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthorizationDetail": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "acr_values": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": {}
+      },
+      "Claim": {
+        "type": "object",
+        "properties": {
+          "issuer": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "originalIssuer": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "properties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "subject": {
+            "$ref": "#/components/schemas/ClaimsIdentity"
+          },
+          "type": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "value": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "valueType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClaimsIdentity": {
+        "type": "object",
+        "properties": {
+          "authenticationType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "isAuthenticated": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "actor": {
+            "$ref": "#/components/schemas/ClaimsIdentity"
+          },
+          "bootstrapContext": {
+            "nullable": true
+          },
+          "claims": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Claim"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "label": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "nameClaimType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "roleClaimType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClaimsPrincipal": {
+        "type": "object",
+        "properties": {
+          "claims": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Claim"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "identities": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClaimsIdentity"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "identity": {
+            "$ref": "#/components/schemas/IIdentity"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Credential": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "type": "string",
+            "nullable": true
+          },
+          "dc": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GuestAuthenticateResult": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "$ref": "#/components/schemas/JsonWebToken"
+          },
+          "ticket": {
+            "$ref": "#/components/schemas/GuestAuthenticationTicket"
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GuestAuthenticationRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/UserId"
+          },
+          "profile": {
+            "nullable": true
+          },
+          "data": {
+            "nullable": true
+          }
+        },
+        "additionalProperties": {}
+      },
+      "GuestAuthenticationTicket": {
+        "type": "object",
+        "properties": {
+          "authenticationScheme": {
+            "type": "string",
+            "nullable": true
+          },
+          "principal": {
+            "$ref": "#/components/schemas/ClaimsPrincipal"
+          },
+          "properties": {
+            "$ref": "#/components/schemas/AuthenticationProperties"
+          },
+          "subject": {
+            "$ref": "#/components/schemas/Credential"
+          },
+          "grant_type": {
+            "type": "string",
+            "nullable": true
+          },
+          "authorization_details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AuthorizationDetail"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HttpValidationProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          },
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": {}
+      },
+      "IIdentity": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "authenticationType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "isAuthenticated": {
+            "type": "boolean",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "JsonWebToken": {
+        "type": "object",
+        "properties": {
+          "authenticationTag": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "ciphertext": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "encodedHeader": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "encryptedKey": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "encodedPayload": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "encodedSignature": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "encodedToken": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "initializationVector": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "innerToken": {
+            "$ref": "#/components/schemas/JsonWebToken"
+          },
+          "isEncrypted": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "isSigned": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "securityKey": {
+            "$ref": "#/components/schemas/SecurityKey"
+          },
+          "signingKey": {
+            "$ref": "#/components/schemas/SecurityKey"
+          },
+          "claims": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Claim"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "alg": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "cty": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "enc": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "kid": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "typ": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "x5t": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "zip": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "actor": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "audiences": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true,
+            "readOnly": true
+          },
+          "azp": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "issuedAt": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "issuer": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "subject": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "validFrom": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "validTo": {
+            "type": "string",
+            "format": "date-time",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ProblemDetails": {
         "type": "object",
         "properties": {
@@ -85,6 +589,69 @@
           }
         },
         "additionalProperties": {}
+      },
+      "ProblemHttpResult": {
+        "type": "object",
+        "properties": {
+          "problemDetails": {
+            "$ref": "#/components/schemas/ProblemDetails"
+          },
+          "contentType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SecurityKey": {
+        "type": "object",
+        "properties": {
+          "keySize": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserId": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "nullable": true
+          },
+          "format": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ValidationProblem": {
+        "type": "object",
+        "properties": {
+          "problemDetails": {
+            "$ref": "#/components/schemas/HttpValidationProblemDetails"
+          },
+          "contentType": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
       }
     }
   }
