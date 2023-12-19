@@ -28,7 +28,10 @@ public record GuestAuthenticationRequest
 
 public class UserId
 {
+  [JsonPropertyName("value")]
   public string Value { get; set; }
+
+  [JsonPropertyName("format")]
   public string Format { get; set; }
 
 }

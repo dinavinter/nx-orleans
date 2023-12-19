@@ -10,7 +10,7 @@ public record GuestAuthenticationProperties
      ConnectDetails.UserInfo(request.UserInfo);
      ConnectDetails.Credential(request.Id);
      ConnectDetails.Identity(request.Profile, request.Data);
-     Subject = new Subject()
+     Context = new Context()
      {
         Tenant = new TenantDetails()
         {
@@ -32,8 +32,8 @@ public record GuestAuthenticationProperties
   public GuestAuthenticationRequest Request { get; set; }
 
 
-   [JsonPropertyName("subject")]
-   public Subject Subject { get; set; } = new Subject();
+   [JsonPropertyName("context")]
+   public Context Context { get; set; } = new Context();
 
 
    [JsonPropertyName("connect")]

@@ -3,7 +3,8 @@ using System.Text.Json.Serialization;
 namespace grains.guest.contract;
 
 
-public record Subject
+
+public record Context
 {
   [JsonPropertyName("user")]
   public User User{ get; set; }
