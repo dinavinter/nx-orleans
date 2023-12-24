@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace grains.guest.contract.result;
 
+
 [JsonConverter(typeof(JsonConverter))]
 public record AuthToken(User User, TenantDetails Tenant, DeviceDetails Device, AuthDetails AuthDetails)
 {

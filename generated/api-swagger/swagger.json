@@ -35,12 +35,13 @@
         }
       }
     },
-    "/api/auth/guest": {
+    "/auth/guest": {
       "post": {
-        "tags": ["Auth"],
+        "tags": ["AuthApi"],
+        "operationId": "auth.guest",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/form-urlencoded": {
               "schema": {
                 "$ref": "#/components/schemas/GuestAuthenticationRequest"
               }
@@ -49,21 +50,11 @@
         },
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AuthenticationConnectState"
-                }
-              }
-            }
-          },
-          "206": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AuthenticationChallengeState"
                 }
               }
             }
@@ -73,7 +64,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ValidationProblem"
+                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "206": {
+            "description": "Partial Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationChallengeState"
                 }
               }
             }
@@ -87,13 +88,45 @@
       "AccountUpsertRequest": {
         "type": "object",
         "properties": {
-          "connection": {
+          "connect_token": {
             "type": "string",
             "nullable": true
           },
-          "authentication": {
+          "authentication_token": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthDetails": {
+        "type": "object",
+        "properties": {
+          "method": {
+            "type": "string",
+            "nullable": true
+          },
+          "channel": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AuthToken": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "tenant": {
+            "$ref": "#/components/schemas/TenantDetails"
+          },
+          "device": {
+            "$ref": "#/components/schemas/DeviceDetails"
+          },
+          "authDetails": {
+            "$ref": "#/components/schemas/AuthDetails"
           }
         },
         "additionalProperties": false
@@ -101,16 +134,12 @@
       "AuthenticationChallengeState": {
         "type": "object",
         "properties": {
-          "connection": {
-            "type": "string",
-            "nullable": true
+          "connect_token": {
+            "$ref": "#/components/schemas/ConnectToken"
           },
           "state": {
             "type": "string",
             "nullable": true
-          },
-          "properties": {
-            "$ref": "#/components/schemas/GuestAuthenticationProperties"
           },
           "challenge": {
             "$ref": "#/components/schemas/Challenge"
@@ -121,17 +150,15 @@
       "AuthenticationConnectState": {
         "type": "object",
         "properties": {
-          "connection": {
-            "type": "string",
-            "nullable": true
+          "connect_token": {
+            "$ref": "#/components/schemas/ConnectToken"
           },
           "state": {
             "type": "string",
             "nullable": true
           },
           "authentication_token": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/AuthToken"
           }
         },
         "additionalProperties": false
@@ -143,6 +170,34 @@
       "ConnectAction": {
         "type": "object",
         "additionalProperties": {}
+      },
+      "ConnectToken": {
+        "type": "object",
+        "properties": {
+          "state": {
+            "type": "string",
+            "nullable": true
+          },
+          "context": {
+            "$ref": "#/components/schemas/Context"
+          },
+          "challenge": {
+            "$ref": "#/components/schemas/Challenge"
+          },
+          "connect": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/ConnectAction"
+            },
+            "nullable": true
+          },
+          "token": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
       },
       "Context": {
         "type": "object",
@@ -172,25 +227,6 @@
           },
           "userAgent": {
             "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "GuestAuthenticationProperties": {
-        "type": "object",
-        "properties": {
-          "request": {
-            "$ref": "#/components/schemas/GuestAuthenticationRequest"
-          },
-          "context": {
-            "$ref": "#/components/schemas/Context"
-          },
-          "connect": {
-            "type": "object",
-            "additionalProperties": {
-              "$ref": "#/components/schemas/ConnectAction"
-            },
             "nullable": true
           }
         },
@@ -327,25 +363,6 @@
           "format": {
             "type": "string",
             "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ValidationProblem": {
-        "type": "object",
-        "properties": {
-          "problemDetails": {
-            "$ref": "#/components/schemas/HttpValidationProblemDetails"
-          },
-          "contentType": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
-          },
-          "statusCode": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
           }
         },
         "additionalProperties": false

@@ -8,6 +8,7 @@ using grains.schema.contract;
 using Json.More;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -18,56 +19,31 @@ using Orleans.Concurrency;
 
 namespace SchemaLand.Api.Controllers;
 
-[ApiController]
-[Route("api/auth")]
-[Produces("application/json")]
-public class AuthController : ControllerBase
+public static class AuthApi
 {
-  public AuthController(
-    ILogger<AuthController> logger,
-    IClusterClient orleansClient)
-  {
-    OrleansClient = orleansClient;
-    Logger = logger;
-  }
-
-  public IClusterClient OrleansClient { get; }
-  public ILogger Logger { get; }
-
-
   /// <summary>
   /// guest authentication API , prepare a connection token for connect api, if the payload is allowed for guest also an authentication token is returned, otherwise a challenge is returned
   /// </summary>
-   /// <remarks>
-  /// Sample request:
-  ///
-  ///     POST /auth.guest
-  ///     {
-  ///        "id": {
-  ///            "format": "email",
-  ///            "email" : "email@mail.com"
-  ///
-  ///          },
-  ///        "communication": {"news":{"status":"opt-in"}},
-  ///        "preferences": {"tos":{"isConsentGranted":true}},
-  ///        "profile":{"firstName":"Jon","lastName":"Smith"},
-  ///        "data":{"campaign":"jon@fo"}
-  ///     }
-  ///
-  /// </remarks>
+  public static void MapAuthGuest(this WebApplication app)
+  {
+    var auth = app.MapGroup("auth").WithOpenApi();
+    auth.AllowAnonymous();
+    auth.MapPost("guest", GuestAuthentication)
+      .WithName("auth.guest")
+      .WithOpenApi()
+      .Accepts<GuestAuthenticationRequest>("application/form-urlencoded")
+      .Produces<AuthenticationConnectState>(200)
+      .Produces<AuthenticationChallengeState>(206)
+      .Produces<HttpValidationProblemDetails>(400)
+      .WithOpenApi();
+  }
 
-  [HttpPost("guest")]
-  [AllowAnonymous]
-  [Consumes(typeof(GuestAuthenticationRequest), "application/form-urlencoded")]
-  [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AuthenticationConnectState))]
-  [ProducesResponseType(StatusCodes.Status206PartialContent, Type = typeof(AuthenticationChallengeState))]
-  [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ValidationProblem))]
-  public virtual async Task<Results<Ok<AuthenticationConnectState>, Ok<AuthenticationChallengeState>, ValidationProblem>> Guest(
-    [FromBody] GuestAuthenticationRequest request)
+  public static async Task<Results<Ok<AuthenticationConnectState>, Ok<AuthenticationChallengeState>, ValidationProblem>>
+    GuestAuthentication(GuestAuthenticationRequest request, [FromServices] IClusterClient clusterClient)
   {
     var authProps = new GuestAuthenticationProperties(request);
 
-    var validationResult = await OrleansClient
+    var validationResult = await clusterClient
       .GetGrain<IAccountSchemaGrain>("<site-id>")
       .ValidateAsync(new Immutable<JsonElement>(request.ToJsonDocument().RootElement));
 
@@ -76,12 +52,13 @@ public class AuthController : ControllerBase
       return TypedResults.ValidationProblem(validationResult.Errors);
     }
 
-    var guestGrain = OrleansClient.GetGrain<IAuthGuest>(Guid.NewGuid());
+    var guestGrain = clusterClient.GetGrain<IAuthGuest>(Guid.NewGuid());
     var authentication = await guestGrain.AuthenticateAsync(authProps);
     return authentication switch
     {
       AuthenticationConnectState connect => TypedResults.Ok(connect),
       AuthenticationChallengeState challenge => TypedResults.Ok(challenge),
+      _ => throw new InvalidOperationException()
     };
   }
 }

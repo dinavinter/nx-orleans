@@ -55,6 +55,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 app.MapIdentities();
+app.MapAuthGuest();
 
 app.Run();
 
