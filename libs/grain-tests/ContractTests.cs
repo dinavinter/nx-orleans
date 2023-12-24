@@ -151,7 +151,7 @@ public class ContractTests
 
     _output.WriteLine(JsonSerializer.Serialize(result));
 
-    var connectToken = new JsonWebTokenHandler().ReadJsonWebToken(result.ConnectToken);
+    var connectToken = new JsonWebTokenHandler().ReadJsonWebToken(result.ConnectToken.Token);
 
     // asert connect token headers
     Assert.Equal("connect+jws", connectToken.Typ);
@@ -345,7 +345,7 @@ public class ContractTests
     var result = new AuthenticationChallengeState( new GuestAuthenticationProperties(request));
 
     _output.WriteLine(JsonSerializer.Serialize(result));
-    var connectToken = new JsonWebTokenHandler().ReadJsonWebToken(result.ConnectToken);
+    var connectToken = new JsonWebTokenHandler().ReadJsonWebToken(result.ConnectToken.Token);
     Assert.Equal("connect+jws", connectToken.Typ);
     Assert.Equal("https://oauth2.gigya.com", connectToken.Issuer);
     Assert.Equivalent(new []{"https://accounts.us1.gigya.com/identity.connect"}, connectToken.Audiences);

@@ -1,11 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text.Json.Serialization;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Tokens;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace grains.guest.contract.result;
 
@@ -26,7 +19,7 @@ public record AuthenticationState
 
 
   [JsonPropertyName("connect_token"), JsonPropertyOrder(9)]
-  public string ConnectToken { get; set; }
+  public ConnectToken ConnectToken { get; set; }
 
 
   [JsonPropertyName("state" ), JsonPropertyOrder(0) ]
@@ -34,39 +27,9 @@ public record AuthenticationState
 
 
 
-  static string GetConnectToken(string state, Challenge challenge, GuestAuthenticationProperties properties)
+  static ConnectToken GetConnectToken(string state, Challenge challenge, GuestAuthenticationProperties properties)
   {
-    var Key = ECDsa.Create(ECCurve.NamedCurves.nistP256);
-
-    return new JsonWebTokenHandler().CreateToken(new SecurityTokenDescriptor()
-    {
-      Issuer = "https://oauth2.gigya.com",
-      Audience = $"https://accounts.{properties.Context.User.Dc}.gigya.com/identity.connect",
-
-      SigningCredentials = new SigningCredentials(new ECDsaSecurityKey(Key), "ES256"),
-      Expires = DateTime.Now.AddMinutes(5),
-      CompressionAlgorithm = CompressionAlgorithms.Deflate,
-      TokenType = "connect+jws",
-      AdditionalHeaderClaims = new Dictionary<string, object>()
-      {
-        ["sub"] = properties.Context.User.Id,
-        ["dc"] = properties.Context.User.Dc,
-        ["tid"] = properties.Context.Tenant.Tid,
-        ["cid"] = "<context-id (random consist between two tokens)>",
-        ["jti"] = RandomNumberGenerator.GetInt32(0, int.MaxValue),
-        //todo: check if to add nonce
-        // ["nonce"] = "<nonce>?",
-
-      },
-      Subject = new ClaimsIdentity(new[]
-      {
-        new Claim("context", JsonSerializer.Serialize(properties.Context), JsonClaimValueTypes.Json),
-        new Claim("state", state),
-        new Claim("challenge", JsonSerializer.Serialize(challenge), JsonClaimValueTypes.Json),
-        new Claim("connect", JsonSerializer.Serialize(properties.ConnectDetails), JsonClaimValueTypes.Json)
-
-      }, "guest")
-    });
+    return new ConnectToken(state, properties.Context, challenge,  properties.ConnectDetails);
   }
 
 }
@@ -75,7 +38,3 @@ public record AuthenticationState
 [JsonDerivedType(typeof(AuthenticationChallengeState.AuthenticationChallenge), typeDiscriminator: "authentication")]
 [JsonDerivedType(typeof(AuthenticationConnectState.GuestChallenge), typeDiscriminator: "identification")]
 public record Challenge();
-
-
-
-
