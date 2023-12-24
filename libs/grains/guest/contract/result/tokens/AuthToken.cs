@@ -9,13 +9,13 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace grains.guest.contract.result;
 
-[JsonConverter(typeof(AuthTokenJwtConverter))]
+[JsonConverter(typeof(JsonConverter))]
 public record AuthToken(User User, TenantDetails Tenant, DeviceDetails Device, AuthDetails AuthDetails)
 {
   [JsonIgnore]
   public string Token => new JsonWebTokenHandler().CreateToken(CreateTokenDescriptor());
 
-  public SecurityTokenDescriptor CreateTokenDescriptor()
+  SecurityTokenDescriptor CreateTokenDescriptor()
   {
     return JwsSettings().CreateTokenDescriptor(AdditionalHeaderClaims(), Claims());
 
@@ -26,8 +26,7 @@ public record AuthToken(User User, TenantDetails Tenant, DeviceDetails Device, A
       ExpiresIn = TimeSpan.FromMinutes(5),
       CompressionAlgorithm = CompressionAlgorithms.Deflate,
       TokenType = "id+jws",
-       SigningCredentials =
-        new SigningCredentials(new ECDsaSecurityKey(ECDsa.Create(ECCurve.NamedCurves.nistP256)), "ES256")
+       SigningCredentials = new SigningCredentials(new ECDsaSecurityKey(ECDsa.Create(ECCurve.NamedCurves.nistP256)), "ES256")
     };
 
     Dictionary<string, object> AdditionalHeaderClaims() => new()
@@ -48,29 +47,27 @@ public record AuthToken(User User, TenantDetails Tenant, DeviceDetails Device, A
 
       }, $"urn:guest:identifier:{User.Format}", "guest", "guest");
   }
-
-
-}
-
-
-public class AuthTokenJwtConverter: JsonConverter<AuthToken>
-{
-  public override AuthToken Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+  static AuthToken FromToken(JsonWebToken token)
   {
-    var token=  new JsonWebTokenHandler().ReadJsonWebToken(reader.GetString() );
     var auth= new AuthToken(token.GetPayloadValue<User>("user"),
       token.GetPayloadValue<TenantDetails>("tenant"),
       token.GetPayloadValue<DeviceDetails>("device"),
       token.GetPayloadValue<AuthDetails>("auth"));
     return auth;
-
   }
 
 
-
-  public override void Write(Utf8JsonWriter writer, AuthToken value, JsonSerializerOptions options)
+  class JsonConverter: JsonConverter<AuthToken>
   {
-    writer.WriteStringValue(new JsonWebTokenHandler().CreateToken(value.CreateTokenDescriptor()));
+    public override AuthToken Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) =>
+      FromToken(new JsonWebTokenHandler().ReadJsonWebToken(reader.GetString()));
 
+    public override void Write(Utf8JsonWriter writer, AuthToken value, JsonSerializerOptions options)=>
+      writer.WriteStringValue(new JsonWebTokenHandler().CreateToken(value.CreateTokenDescriptor()));
   }
+
+
 }
+
+
+

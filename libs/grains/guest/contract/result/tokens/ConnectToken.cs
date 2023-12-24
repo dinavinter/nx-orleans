@@ -9,12 +9,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace grains.guest.contract.result;
 
-[JsonConverter(typeof(ConnectTokenJwtConverter))]
+[JsonConverter(typeof(JsonConverter))]
 public record ConnectToken(string State, Context Context, Challenge Challenge, ConnectDetails Connect)
 {
   public string Token => new JsonWebTokenHandler().CreateToken(CreateTokenDescriptor());
 
-  public SecurityTokenDescriptor CreateTokenDescriptor()
+  SecurityTokenDescriptor CreateTokenDescriptor()
   {
     return JwsSettings().CreateTokenDescriptor(AdditionalHeaderClaims(), Claims());
 
@@ -47,28 +47,25 @@ public record ConnectToken(string State, Context Context, Challenge Challenge, C
       new Claim("connect", JsonSerializer.Serialize(Connect), JsonClaimValueTypes.Json)
     }, "guest");
   }
-
-
-}
-
-
-public class ConnectTokenJwtConverter : JsonConverter<ConnectToken>
-{
-  public override ConnectToken Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+  static ConnectToken FromToken(JsonWebToken jsonWebToken)
   {
-    var token = new JsonWebTokenHandler().ReadJsonWebToken(reader.GetString());
-    return new ConnectToken(token.GetPayloadValue<string>("state"),
-      token.GetPayloadValue<Context>("context"),
-      token.GetPayloadValue<Challenge>("challenge"),
-      token.GetPayloadValue<ConnectDetails>("connect"));
-
+    return new ConnectToken(jsonWebToken.GetPayloadValue<string>("state"),
+      jsonWebToken.GetPayloadValue<Context>("context"),
+      jsonWebToken.GetPayloadValue<Challenge>("challenge"),
+      jsonWebToken.GetPayloadValue<ConnectDetails>("connect"));
   }
 
-
-
-  public override void Write(Utf8JsonWriter writer, ConnectToken value, JsonSerializerOptions options)
+  public class JsonConverter : JsonConverter<ConnectToken>
   {
-    writer.WriteStringValue(new JsonWebTokenHandler().CreateToken(value.CreateTokenDescriptor()));
+    public override ConnectToken Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)=>
+      FromToken(new JsonWebTokenHandler().ReadJsonWebToken(reader.GetString()));
+
+
+    public override void Write(Utf8JsonWriter writer, ConnectToken value, JsonSerializerOptions options)=>
+      writer.WriteStringValue(new JsonWebTokenHandler().CreateToken(value.CreateTokenDescriptor()));
 
   }
 }
+
+
+
