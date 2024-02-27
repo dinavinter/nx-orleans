@@ -6,7 +6,8 @@
 
 ## Quick Start
 Start with `pnpm install` (`npm install -g pnpm` if you don't have it)
-And then `pnpx nx serve api`  
+
+And then `pnpm serve`  
 
 ## Projects
 - [api](./api) - ASP.NET Core Web API application
