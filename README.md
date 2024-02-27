@@ -36,3 +36,5 @@ Example of adding genration entry to the `api-swagger` project:
   }
 }
 ```
+
+![nx graph](./graph.png)
