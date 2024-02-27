@@ -1,4 +1,132 @@
 {
-  "source_base_path": "dinavinter.github.io/nx-orleans/generated/docs",
-  "files": []
+  "source_base_path": "/Users/I347305/Src/orleans/nx-orleans-/generated/docs/build",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      }
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "controllers.CalculatorController.md",
+      "output": {
+        ".html": {
+          "relative_path": "controllers.CalculatorController.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "controllers.md",
+      "output": {
+        ".html": {
+          "relative_path": "controllers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "grains.Contract.ICalculatorGrain.md",
+      "output": {
+        ".html": {
+          "relative_path": "grains.Contract.ICalculatorGrain.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "grains.Contract.md",
+      "output": {
+        ".html": {
+          "relative_path": "grains.Contract.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "grains.Implementation.CalculatorGrain.md",
+      "output": {
+        ".html": {
+          "relative_path": "grains.Implementation.CalculatorGrain.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "grains.Implementation.md",
+      "output": {
+        ".html": {
+          "relative_path": "grains.Implementation.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "grains.controllers.CalculatorController.md",
+      "output": {
+        ".html": {
+          "relative_path": "grains.controllers.CalculatorController.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "grains.controllers.md",
+      "output": {
+        ".html": {
+          "relative_path": "grains.controllers.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "grains.md",
+      "output": {
+        ".html": {
+          "relative_path": "grains.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html"
+        },
+        ".json": {
+          "relative_path": "toc.json"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
 }
