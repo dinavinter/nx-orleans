@@ -2,22 +2,23 @@
   "output": "generated/docs/_site",
   "build": {
     "content": [
-      "references/**/*.{md|yml}"
+      {
+        "files": "**/*.{md,yml}"
+      }
     ],
-    "resource": [
-      "**/media/**"
+    "template": [
+      "default",
+      "modern"
     ],
     "globalMetadata": {
       "_appTitle": "NX + Net + Orleans + Docfx",
-      "_appName": "NX + Net + Orleans + Docfx",
-      "_appLogoPath": "images/logo.png",
-      "_appFaviconPath": "images/favicon.ico",
+      "_appName": "nx-orleans",
+      "_appLogoPath": "logo.png",
+      "_appFaviconPath": "favicon.ico",
       "_enableSearch": true,
-      "_enableNewTab": true
+      "_enableNewTab": true,
+      "_layout": "landing"
     }
   },
-  "inputs": [
-    "generated/docs/references/**/*"
-  ],
-  "config": "generated/docs/docfx.json"
+  "input": "generated/docs/build/**/*"
 }

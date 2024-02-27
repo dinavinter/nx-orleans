@@ -28,13 +28,10 @@
       ],
       "options": {
         "output": "{workspaceRoot}/generated/docs/references/grain-controllers",
-        "input": "libs/grain-controllers",
-        "dest" : "grain-controllers"
+        "input": "libs/grain-controllers"
       }
     }
   },
-  "projectType": "library",
-  "implicitDependencies": [
-    "grains"
-  ]
+  "projectType": "library"
+
 }

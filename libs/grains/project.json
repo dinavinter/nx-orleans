@@ -30,8 +30,7 @@
         "outputProject": "docs",
         "dest" : "grains"
 
-      },
-      "dependsOn": ["^spec"]
+      }
 
     }
   },

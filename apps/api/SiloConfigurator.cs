@@ -1,5 +1,7 @@
 using Orleans.Contrib.UniversalSilo;
 
+namespace api;
+
 /// <summary>
 /// Override methods in this class to take over how the silo is configured
 /// </summary>
@@ -7,7 +9,7 @@ class SiloConfigurator : Configuration.SiloConfigurator
 {
   public override Configuration.SiloConfiguration SiloConfiguration =>
     base.SiloConfiguration
-      .With(_c => _c.ServiceId = "SchemaLand.Api");
+      .With(_c => _c.ServiceId = "nx-orleans");
 
   //public override ClusteringConfiguration ClusteringConfiguration =>
   //    base.ClusteringConfiguration;
