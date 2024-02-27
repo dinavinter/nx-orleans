@@ -1,8 +1,8 @@
-﻿using Orleans;
-using System.Threading.Tasks;
-using SchemaLand.Api.Contract;
+﻿using System.Threading.Tasks;
+using grains.Contract;
+using Orleans;
 
-namespace SchemaLand.Api.Implementation
+namespace grains.Implementation
 {
     public class CalculatorGrain : Grain, ICalculatorGrain
     {

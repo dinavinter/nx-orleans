@@ -1,40 +1,54 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "Schemaland.Apps.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
+    "title": "api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null",
     "version": "1.0"
   },
   "paths": {
-    "/WeatherForecast": {
+    "/api/Calculator/{l}+{r}": {
       "get": {
-        "tags": ["WeatherForecast"],
-        "operationId": "GetWeatherForecast",
+        "tags": ["Calculator"],
+        "operationId": "Add",
+        "parameters": [
+          {
+            "name": "l",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "r",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
+                  "type": "integer",
+                  "format": "int32"
                 }
-              },
-              "text/json": {
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
+                  "$ref": "#/components/schemas/ProblemDetails"
                 }
               }
             }
@@ -45,28 +59,32 @@
   },
   "components": {
     "schemas": {
-      "WeatherForecast": {
+      "ProblemDetails": {
         "type": "object",
         "properties": {
-          "date": {
+          "type": {
             "type": "string",
-            "format": "date"
+            "nullable": true
           },
-          "temperatureC": {
-            "type": "integer",
-            "format": "int32"
+          "title": {
+            "type": "string",
+            "nullable": true
           },
-          "temperatureF": {
+          "status": {
             "type": "integer",
             "format": "int32",
-            "readOnly": true
+            "nullable": true
           },
-          "summary": {
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
             "type": "string",
             "nullable": true
           }
         },
-        "additionalProperties": false
+        "additionalProperties": {}
       }
     }
   }

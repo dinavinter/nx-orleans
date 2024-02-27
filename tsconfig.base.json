@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@schemaland/generated/api-types": ["generated/api-types/src/index.ts"]
+      "@nx-net/docs": ["plugin/net-doc/src/index.ts"],
+      "@nxo/generated/api-types": ["generated/api-types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

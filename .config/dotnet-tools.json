@@ -7,6 +7,18 @@
       "commands": [
         "swagger"
       ]
+    },
+    "docfx": {
+      "version": "2.75.3",
+      "commands": [
+        "docfx"
+      ]
+    },
+    "docfxtocgenerator": {
+      "version": "1.18.0",
+      "commands": [
+        "DocFxTocGenerator"
+      ]
     }
   }
 }

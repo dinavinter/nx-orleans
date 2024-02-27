@@ -1,7 +1,7 @@
-﻿using Orleans;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Orleans;
 
-namespace SchemaLand.Api.Contract
+namespace grains.Contract
 {
     public interface ICalculatorGrain : IGrainWithGuidKey
     {

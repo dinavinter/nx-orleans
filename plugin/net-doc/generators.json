@@ -1,0 +1,9 @@
+{
+  "generators": {
+    "docfx": {
+      "factory": "./src/generators/docfx/generator",
+      "schema": "./src/generators/docfx/schema.json",
+      "description": "docfx generator"
+    }
+  }
+}

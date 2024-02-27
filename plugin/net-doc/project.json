@@ -1,0 +1,63 @@
+{
+  "name": "net-doc",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "plugin/net-doc/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/plugin/net-doc",
+        "main": "plugin/net-doc/src/index.ts",
+        "tsConfig": "plugin/net-doc/tsconfig.lib.json",
+        "assets": [
+          "plugin/net-doc/*.md",
+          {
+            "input": "./plugin/net-doc/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./plugin/net-doc/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./plugin/net-doc",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./plugin/net-doc",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "plugin/net-doc/**/*.ts",
+          "plugin/net-doc/package.json",
+          "plugin/net-doc/generators.json",
+          "plugin/net-doc/executors.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "plugin/net-doc/jest.config.ts"
+      }
+    },
+    "doc": {
+      "command": "npx nx g @nx-dotnet/nxdoc:generate-docs --outputDirectory plugin/net-doc/docs"
+    }
+  },
+  "tags": []
+}

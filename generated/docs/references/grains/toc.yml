@@ -1,0 +1,16 @@
+### YamlMime:TableOfContent
+- name: grains
+  href: grains.md
+  items:
+    - name: Contract
+      href: grains.Contract.md
+      items:
+        - name: Interfaces
+        - name: ICalculatorGrain
+          href: grains.Contract.ICalculatorGrain.md
+    - name: Implementation
+      href: grains.Implementation.md
+      items:
+        - name: Classes
+        - name: CalculatorGrain
+          href: grains.Implementation.CalculatorGrain.md

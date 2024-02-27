@@ -1,12 +1,12 @@
 using System.IO.Compression;
-using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using Orleans.Contrib.UniversalSilo;
+
+namespace api;
 
 /// <summary>
 /// Override methods in this class to take over how the web-api host is configured
@@ -74,7 +74,5 @@ static class WebApiConfigurator
       .Configure((BrotliCompressionProviderOptions options) => { options.Level = CompressionLevel.Optimal; })
       .Configure((GzipCompressionProviderOptions options) => { options.Level = CompressionLevel.Optimal; });
 
+  }
 }
-}
-
-

@@ -1,0 +1,63 @@
+{
+  "name": "docs",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "targets": {
+    "noop": {
+      "executor": "nx:noop",
+      "outputs": ["{projectRoot}"]
+    },
+    "doc": {
+      "executor": "@nx-net/docs:build",
+      "inputs": ["{projectRoot}/build"],
+      "outputs": ["{projectRoot}/site"],
+      "options": {
+        "output": "{projectRoot}/_site",
+        "inputs": ["{projectRoot}/build/**/*"  ],
+        "input": "{projectRoot}/build/**/*",
+        "config": "{projectRoot}/build/docfx.json"
+
+      },
+      "dependsOn": ["merge"]
+
+    },
+    "merge": {
+      "executor": "nx:run-commands",
+      "options":{
+        "cwd": "generated/docs",
+        "commands": [
+          "mkdir -p build",
+          "cp -r references/**/* build",
+          "pnpx deepmerge-yaml $(find references -type f -name 'toc.yml') > build/toc.yml",
+          "cp build/toc.yml build/old-toc.yml",
+          "nx run docs:toc",
+          "rm -rf build/toc.yml",
+          "cp build/old-toc.yml build/toc.yml",
+          "rm -rf build/old-toc.yml"
+        ],
+        "parallel": false
+
+      }, "dependsOn": [
+        "^spec"
+      ]},
+
+    "toc": {
+      "executor": "@nx-net/docs:toc",
+      "options": {
+        "input": "{projectRoot}/build",
+        "output": "{projectRoot}/build",
+        "verbose": true,
+        "index": true
+      }
+    },
+    "start": {
+      "command": "dotnet docfx serve {projectRoot}/_site",
+      "dependsOn": ["doc"]
+    },
+
+    "serve":{
+      "command": "dotnet docfx {projectRoot}/build/docfx.json --serve"
+    }
+  },
+  "implicitDependencies": ["grains", "grain-controllers"]
+}

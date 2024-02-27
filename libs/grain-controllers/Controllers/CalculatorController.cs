@@ -4,9 +4,9 @@ using Microsoft.Extensions.Logging;
 using Orleans;
 using System;
 using System.Threading.Tasks;
-using SchemaLand.Api.Contract;
+using grains.Contract;
 
-namespace SchemaLand.Api.Controllers
+namespace controllers
 {
     [ApiController]
     [Route("api/[controller]")]
