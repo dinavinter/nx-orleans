@@ -9,15 +9,15 @@ Start with `pnpm install` (`npm install -g pnpm` if you don't have it)
 And then `pnpx nx serve api`  
 
 ## Projects
-- `api` - ASP.NET Core Web API application
-- `grains` - Orleans Grains
-- `grain-controllers` - Controllers for the Orleans Grains
-- `grain-tests` - Test project for the Orleans Grains
+- [api](./api) - ASP.NET Core Web API application
+- [grains](./libs/grains) - Orleans Grains
+- [grain-controllers](./libs/grain-controllers) - Controllers for the Orleans Grains
+- [grain-tests](./libs/grain-tests) - Test project for the Orleans Grains
 
 ## Generated Code
-- `generated/docs` - Docfx - dotnet documentation, generated from the source code
-- `generated/api-swagger` - OpenAPI spec for the API, generated from the ASP.NET Core Web API
-- `generated/api-types` - Typescript client code for the API, generated from the OpenAPI spec
+- [generated/docs](./generated/docs/references) - Docfx - dotnet documentation, generated from the source code
+- [generated/api-swagger](./generated/api-swagger) - OpenAPI spec for the API, generated from the ASP.NET Core Web API
+- [generated/api-types](./generated/api-types) - Typescript client code for the API, generated from the OpenAPI spec
 
  
 ### Extending Generated Code
