@@ -81,7 +81,7 @@ export default async function runExecutor(
     ensureCLIToolInstalled(
       context,
       dotnetClient,
-      "2.73.2",
+      "2.75.3",
     );
   }
 

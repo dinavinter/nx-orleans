@@ -73,33 +73,26 @@
       "properties": {
         "content": {
           "type": "array",
-          "items": [
+          "items":
             {
               "type": "object",
               "properties": {
                 "files": {
-                  "type": "array",
+                  "type": ["array", "string"],
                   "items": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "string"
-                    },
                     {
                       "type": "string"
                     }
                   ]
+                },
+                "src": {
+                  "type": "string"
+                },
+                "dest": {
+                  "type": "string"
                 }
               }
             }
-          ]
         },
         "resource": {
           "type": "array",

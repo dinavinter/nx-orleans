@@ -32,23 +32,28 @@ function normalizeOptions(
   projectName: string,
 ): DocfxExecutorSchema {
   console.log("normalizeOptions" , opts, project);
-  const output = opts.output ?? resolve(workspaceRoot, `generated/docs/${projectName}/specs`);
+  // console.log("project.root", opts.outputProject);
+  const dest = opts.dest ?? `specs/${projectName}`;
+  const output = opts.output ?? resolve(workspaceRoot, `${projectName}/docs`, dest);
+  console.log("dest", dest, "output", output);
+
   const input = resolve(workspaceRoot,opts.input) ?? resolve(workspaceRoot,`${project.root}`);
    const metadata = opts.metadata?? [{
      src: [{
        "files": ["**.csproj"],
        "exclude": ["**/bin/**", "**/obj/**", "**/[Tt]ests/**"],
-       src: resolve(workspaceRoot, input)
+        src: resolve(workspaceRoot, input)
        // src: input
 
      }],
+     // "dest": dest,
     "includePrivateMembers": false,
     "disableGitFeatures": false,
     "disableDefaultFilter": false,
     "noRestore": false,
     "namespaceLayout": "nested",
     "enumSortOrder": "declaringOrder"
-  }];
+   }];
 
   return {
      metadata: metadata,
@@ -90,7 +95,7 @@ export default async function runExecutor(
     ensureCLIToolInstalled(
       context,
       dotnetClient,
-      "2.73.2",
+      "2.75.3",
     );
   }
 
@@ -100,14 +105,17 @@ export default async function runExecutor(
     "-o",
     options.output,
     "--outputFormat",
-    options.format ?? "Markdown"
+    options.format ?? "markdown",
+    "--globalNamespaceId",
+    options.globalNamespaceId ?? "",
+
 
    ]);
 
     if(existsSync(resolve(outputDirectory, 'temp-docfx.json'))) {
       fs.unlinkSync(resolve(outputDirectory, 'temp-docfx.json'));
     }
-
+    fs.writeFileSync(resolve(outputDirectory, 'metadata.json'), JSON.stringify(options.metadata, null, 2));
 
   try {
     const isInstalled = require.resolve('prettier');

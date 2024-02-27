@@ -67,6 +67,12 @@
             },
             "namespaceLayout": {
               "type": "string"
+            },
+            "outputProject": {
+              "type": "string"
+            },
+            "globalNamespaceId": {
+              "type": "string"
             }
           },
           "required": [

@@ -21,14 +21,18 @@
     "lint": {
       "executor": "@nx-dotnet/core:format"
     },
-
-    "doc": {
+    "spec": {
       "executor": "@nx-net/docs:docfx",
+      "outputs": ["{workspaceRoot}/generated/docs/references"],
       "options": {
-        "output": "generated/docs/references/grains",
+        "output": "{workspaceRoot}/generated/docs/references/grains",
         "input": "libs/grains",
-        "outputProject": "docs"
-      }
+        "outputProject": "docs",
+        "dest" : "grains"
+
+      },
+      "dependsOn": ["^spec"]
+
     }
   },
   "projectType": "library"

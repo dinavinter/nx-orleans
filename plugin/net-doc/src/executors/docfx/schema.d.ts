@@ -6,6 +6,8 @@ export interface DocfxExecutorSchema {
   output?: string;
   input?: string;
   format?: string;
+  dest?: string;
+  globalNamespaceId?: string;
  } // eslint-disable-line
 
 //export type from schema.json

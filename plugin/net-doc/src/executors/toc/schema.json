@@ -31,14 +31,12 @@
       "default": false
     },
     "ignore": {
-      "type": "boolean",
-      "description": "Use the .ignore files for TOC directory ignore. Format are raws of directory names: directory-to-ignore",
-      "default": false
+      "type": "string",
+      "description": "Use the .ignore files for TOC directory ignore. Format are raws of directory names: directory-to-ignore"
     },
     "multitoc": {
       "type": "number",
-      "description": "Generate multiple toc files for child folders down to a certain child depth, default is 0 (root only generation).",
-      "default": 0
+      "description": "Generate multiple toc files for child folders down to a certain child depth, default is 0 (root only generation)."
     },
     "skipInstall": {
       "type": "boolean",

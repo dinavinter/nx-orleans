@@ -3,10 +3,10 @@ using Orleans.Contrib.UniversalSilo;
 using Orleans.TestingHost;
 using System;
 using System.Threading.Tasks;
-using SchemaLand.Api.Contract;
+using grains.Contract;
 using Xunit;
 
-namespace Test.SchemaLand.Api
+namespace grains.tests
 {
     /// <summary>
     /// This is needed to group tests together into a fixture

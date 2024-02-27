@@ -1,5 +1,6 @@
+using api;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using static WebApiConfigurator;
+using static api.WebApiConfigurator;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Host.UseOrleans(new SiloConfigurator().ConfigurationFunc);

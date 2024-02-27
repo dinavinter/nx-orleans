@@ -21,15 +21,20 @@
     "lint": {
       "executor": "@nx-dotnet/core:format"
     },
-
-    "doc": {
+    "spec": {
       "executor": "@nx-net/docs:docfx",
+      "outputs": [
+        "{workspaceRoot}/generated/docs/references"
+      ],
       "options": {
-        "output": "generated/docs/references/grain-controllers",
+        "output": "{workspaceRoot}/generated/docs/references/grain-controllers",
         "input": "libs/grain-controllers",
-        "outputProject": "docs"
+        "dest" : "grain-controllers"
       }
     }
   },
-  "projectType": "library"
+  "projectType": "library",
+  "implicitDependencies": [
+    "grains"
+  ]
 }

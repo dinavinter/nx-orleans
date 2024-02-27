@@ -78,7 +78,7 @@ function ensureCLIToolInstalled(
   context: ExecutorContext,
   dotnetClient: DotNetClient) {
      const cli = 'DocFxTocGenerator';
-     const version = '1.17.0';
+     const version = '1.18.0';
     const toolVersion =
     readInstalledDotnetToolVersion(cli);
 
@@ -118,10 +118,10 @@ function args (options: DocfxTOCExecutorSchema): string[]  {
         args.push('-i');
     }
     if (options.ignore) {
-        args.push('-g');
+        args.push(`-g ${options.ignore}`);
     }
     if (options.multitoc) {
-        args.push('-m');
+        args.push(`-m ${options.multitoc}`);
     }
     return args;
 }

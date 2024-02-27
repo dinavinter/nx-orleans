@@ -3,7 +3,6 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "plugin/net-doc/src",
   "projectType": "library",
-
   "targets": {
     "build": {
       "executor": "@nx/js:tsc",
@@ -56,7 +55,7 @@
         "jestConfig": "plugin/net-doc/jest.config.ts"
       }
     },
-    "doc":{
+    "doc": {
       "command": "npx nx g @nx-dotnet/nxdoc:generate-docs --outputDirectory plugin/net-doc/docs"
     }
   },

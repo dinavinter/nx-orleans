@@ -10,47 +10,107 @@
     "doc": {
       "executor": "@nx-net/docs:build",
       "outputs": ["{projectRoot}/_site"],
-      "inputs": ["{projectRoot}/docfx.json", "{projectRoot}/references/**/*"],
-      "dependsOn": [{
-        "target": "doc",
-        "dependencies": true
-       },{
-        "target": "toc",
-        "dependencies": true
-      }],
+      "inputs": [
+        "{projectRoot}/build",
+        "{workspaceRoot}/generated/api-swagger/swagger.json"
+      ],
       "options": {
         "output": "{projectRoot}/_site",
-        "inputs": ["{projectRoot}/references/**/*"],
-        "config": "{projectRoot}/docfx.json",
+        "inputs": ["{projectRoot}/build/**/*" , "{projectRoot}/index.md", "{projectRoot}/toc.yml"  ],
         "build": {
-          "content": ["references/**/*.{md|yml}"],
-          "resource": ["**/media/**"],
+          "content": [  { "files": "**/*.{md,yml}", "src": "references", "dest": "reference" } , { "files": "index.md", "src": ".", "dest": "." } , {"files": "toc.yml"} ],
+          "template": [  "default", "modern"],
           "globalMetadata": {
             "_appTitle": "NX + Net + Orleans + Docfx",
             "_appName": "NX + Net + Orleans + Docfx",
-            "_appLogoPath": "images/logo.png",
-            "_appFaviconPath": "images/favicon.ico",
+            "_appLogoPath": "logo.png",
+            "_appFaviconPath": "favicon.ico",
             "_enableSearch": true,
-            "_enableNewTab": true
+            "_enableNewTab": true,
+            "_layout": "landing"
+
           }
         }
-      }
+      },
+      "dependsOn": ["^spec"]
+    },
+    "merge": {
+      "executor": "nx:run-commands",
+      "options":{
+        "cwd": "generated/docs",
+        "commands": [
+          "mkdir -p build",
+          "cp -r references/**/* build",
+          "pnpx deepmerge-yaml $(find references -type f -name 'toc.yml') > build/toc.yml",
+          "cp build/toc.yml build/old-toc.yml",
+          "nx run docs:toc",
+          "rm -rf build/toc.yml",
+          "cp build/old-toc.yml build/toc.yml",
+          "rm -rf build/old-toc.yml"
+        ],
+        "parallel": false
+
+    }, "dependsOn": [
+        "^spec"
+      ]},
+    "merge-metadata": {
+      "executor": "nx:run-commands",
+      "options":{
+        "cwd": "generated/docs",
+        "commands": [
+          "pwd",
+          "jq -s '[.[][]]' references/**/metadata.json > build/metadata.json",
+          "jq --slurpfile newArray build/metadata.json '.metadata = $newArray[0]' docfx.json > build/docfx.json",
+          "rm -rf build/metadata.json"
+        ],
+        "parallel": false
+
+      },
+      "dependsOn": [
+        "^spec"
+      ]
+    },
+    "build-site": {
+      "executor": "@nx-net/docs:build",
+      "inputs": ["{projectRoot}/build"],
+      "outputs": ["{projectRoot}/site"],
+      "options": {
+        "output": "{projectRoot}/build/site",
+        "inputs": ["{projectRoot}/build/**/*"  ],
+        "input": "{projectRoot}/build/**/*",
+        "config": "{projectRoot}/build/docfx.json"
+
+      },
+      "dependsOn": ["merge"]
+
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "generated/docs",
+        "commands": [
+          "dotnet docfx  build/docfx.json --output build/_site --template modern --serve"
+        ]
+      },
+      "dependsOn": ["merge" ]
     },
     "toc": {
       "executor": "@nx-net/docs:toc",
       "options": {
-        "input": "{projectRoot}/references",
-        "output": "{projectRoot}/references",
+        "input": "{projectRoot}/build",
+        "output": "{projectRoot}/build",
         "verbose": true,
         "index": true
-      },
-      "dependsOn": [{
-        "target": "doc",
-        "dependencies": true
-      }]
+      }
     },
     "serve": {
-      "command": "dotnet docfx serve"
+      "command": "dotnet docfx serve {projectRoot}/_site",
+      "dependsOn": ["doc"]
+    },
+
+    "start":{
+      "command": "dotnet docfx {projectRoot}/build/docfx.json --serve"
     }
-  }
+  },
+  "implicitDependencies": ["grains", "grain-controllers"]
 }

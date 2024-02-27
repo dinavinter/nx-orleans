@@ -9,15 +9,13 @@
     "type-gen": {
       "executor": "@nx-dotnet/core:openapi-codegen",
       "outputs": ["{workspaceRoot}/demo/libs/generated/api-types"],
-
       "options": {
         "openapiJsonPath": "generated/api-swagger/swagger.json",
         "outputProject": "generated-api-types"
       },
       "dependsOn": ["^swagger"]
-
     },
-    "client-gen":{
+    "client-gen": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpx openapi-typescript-codegen  openapi generate-ts  -o generated/api-types/src/client -i generated/api-swagger/swagger.json --client axios --useUnionTypes --exportModels false --name myapp "
@@ -30,9 +28,9 @@
       "options": {
         "command": "echo 'export * from \"./client\";' >> generated/api-types/src/index.ts"
       },
-       "dependsOn": ["api-types"]
+      "dependsOn": ["api-types"]
     },
-    "angulargen":{
+    "angulargen": {
       "executor": "nx:run-commands",
       "options": {
         "command": "pnpx openapi-typescript-codegen  openapi generate-ts  -o generated/angular -i generated/api-swagger/swagger.json --client angular --useUnionTypes --exportModels false --name myapp "
