@@ -18,11 +18,12 @@ And then `pnpx nx serve api`
 - [generated/docs](./generated/docs/references) - Docfx - dotnet documentation, generated from the source code
 - [generated/api-swagger](./generated/api-swagger) - OpenAPI spec for the API, generated from the ASP.NET Core Web API
 - [generated/api-types](./generated/api-types) - Typescript client code for the API, generated from the OpenAPI spec
+- [generated/angular](./generated/angular) - Angular client code for the API, generated from the OpenAPI spec
 
  
 ### Extending Generated Code
 You can extend the generation flow by adding more tasks to the api-swagger and api-types projects.
-Example of adding genration entry to the `api-swagger` project:
+Example of adding generation entry to the `api-swagger` project:
 
 ```json
 {
@@ -37,4 +38,4 @@ Example of adding genration entry to the `api-swagger` project:
 }
 ```
 
-![nx graph](./graph.png)
+![nx graph ](./graph.png)
