@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@nx-net/docs": ["plugin/net-doc/src/index.ts"],
-      "@nxo/generated/api-types": ["generated/api-types/src/index.ts"]
+      "@nxo/angular": ["generated/angular/src/index.ts"],
+      "@nxo/api-types": ["generated/api-types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

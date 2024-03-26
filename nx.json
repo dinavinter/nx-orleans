@@ -48,6 +48,11 @@
     },
     "swagger": {
       "cache": true
+    },
+    "@nx/angular:package": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "namedInputs": {
@@ -116,13 +121,17 @@
           "test": "test"
         },
         "ignorePaths": [],
-        "tags": [
-          "nx",
-          "dotnet",
-          "orleans",
-          "openapi"
-        ]
+        "tags": ["nx", "dotnet", "orleans", "openapi"]
       }
     }
-  ]
+  ],
+  "generators": {
+    "@nx/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nx/angular:component": {
+      "style": "css"
+    }
+  }
 }
