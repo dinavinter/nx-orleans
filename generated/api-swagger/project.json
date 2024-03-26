@@ -33,7 +33,7 @@
     "angulargen": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "pnpx openapi-typescript-codegen  openapi generate-ts  -o generated/angular -i generated/api-swagger/swagger.json --client angular --useUnionTypes --exportModels false --name myapp "
+        "command": "nx g @nx/angular:library --name angular --directory generated/angular --projectNameAndRootFormat as-provided  --publishable --import-path=@nxo/angular  && pnpx openapi-typescript-codegen  openapi generate-ts  -o generated/angular/src -i generated/api-swagger/swagger.json --client angular --useUnionTypes --exportModels false --name nxo "
       },
       "outputs": ["{workspaceRoot}/demo/libs/generated/angular"],
       "dependsOn": ["^swagger"]

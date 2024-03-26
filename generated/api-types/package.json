@@ -1,5 +1,5 @@
 {
-  "name": "@nxo/generated/api-types",
+  "name": "@nxo/api-types",
   "version": "0.0.1",
   "dependencies": {
     "tslib": "^2.3.0"

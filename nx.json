@@ -3,15 +3,8 @@
   "targetDefaults": {
     "build": {
       "cache": true,
-      "dependsOn": [
-        "^build",
-        "codegen",
-        "^codegen"
-      ],
-      "inputs": [
-        "production",
-        "^production"
-      ]
+      "dependsOn": ["^build", "codegen", "^codegen"],
+      "inputs": ["production", "^production"]
     },
     "lint": {
       "cache": true,
@@ -31,11 +24,7 @@
     },
     "@nx/jest:jest": {
       "cache": true,
-      "inputs": [
-        "default",
-        "^production",
-        "{workspaceRoot}/jest.preset.js"
-      ],
+      "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"],
       "options": {
         "passWithNoTests": true
       },
@@ -48,13 +37,15 @@
     },
     "swagger": {
       "cache": true
+    },
+    "@nx/angular:package": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
     }
   },
   "namedInputs": {
-    "default": [
-      "{projectRoot}/**/*",
-      "sharedGlobals"
-    ],
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
       "default",
       "!{projectRoot}/.eslintrc.json",
@@ -116,13 +107,17 @@
           "test": "test"
         },
         "ignorePaths": [],
-        "tags": [
-          "nx",
-          "dotnet",
-          "orleans",
-          "openapi"
-        ]
+        "tags": ["nx", "dotnet", "orleans", "openapi"]
       }
     }
-  ]
+  ],
+  "generators": {
+    "@nx/angular:library": {
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nx/angular:component": {
+      "style": "css"
+    }
+  }
 }
