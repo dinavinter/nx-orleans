@@ -10,15 +10,13 @@ And then `pnpx nx serve api`
 
 ## Projects
 - [api](./api) - ASP.NET Core Web API application
-- [grains](./libs/grains) - Orleans Grains
-- [grain-controllers](./libs/grain-controllers) - Controllers for the Orleans Grains
-- [grain-tests](./libs/grain-tests) - Test project for the Orleans Grains
+- [grains](./grains) - Orleans Grains
+- [grain-tests](./grain-tests) - Test project for the Orleans Grains
 
 ## Generated Code
 - [generated/docs](./generated/docs/references) - Docfx - dotnet documentation, generated from the source code
 - [generated/api-swagger](./generated/api-swagger) - OpenAPI spec for the API, generated from the ASP.NET Core Web API
 - [generated/api-types](./generated/api-types) - Typescript client code for the API, generated from the OpenAPI spec
-- [generated/angular](./generated/angular) - Angular client code for the API, generated from the OpenAPI spec
 
  
 ### Extending Generated Code

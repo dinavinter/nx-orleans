@@ -1,7 +1,0 @@
-### YamlMime:TableOfContent
-- name: controllers
-  href: controllers.md
-  items:
-    - name: Classes
-    - name: CalculatorController
-      href: controllers.CalculatorController.md
