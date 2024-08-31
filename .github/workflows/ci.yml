@@ -15,23 +15,24 @@ permissions:
   contents: read
 
 jobs:
-  main:
-    name: Nx Cloud - Main Job
-    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.13.1
-    with:
-      main-branch-name: main
-      number-of-agents: 3
-      init-commands: |
-        pnpm exec nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3
-      parallel-commands: |
-        pnpm exec nx-cloud record -- pnpm exec nx format:check
-      parallel-commands-on-agents: |
-        pnpm exec nx affected --target=lint --parallel=3
-        pnpm exec nx affected --target=test --parallel=3 --ci --code-coverage
-        pnpm exec nx affected --target=build --parallel=3
+  jobs:
+    main:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 20
+            cache: 'pnpm'
+        # This line enables distribution
+        # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "e2e-ci" targets have been requested
+        # - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
+        - run: pnpm i
 
-  agents:
-    name: Nx Cloud - Agents
-    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.13.1
-    with:
-      number-of-agents: 3
+        - uses: nrwl/nx-set-shas@v4
+
+        - run: pnpx nx-cloud record -- nx format:check
+        - run: pnpx nx affected -t lint test build
+
