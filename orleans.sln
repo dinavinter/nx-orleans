@@ -9,9 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grains", "grains\grains.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "grain-tests", "grain-tests\grain-tests.csproj", "{42DF18F7-5A9A-4915-84C3-4CB80F66B635}"
 EndProject
+
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{D60D9083-AF73-4264-BA04-8F57A0194D06}"
 	ProjectSection(SolutionItems) = preProject
-	  Directory.Build.props = Directory.Build.props
+			Directory.Build.props = Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
 		jest.config.ts = jest.config.ts
 		jest.preset.js = jest.preset.js
@@ -21,7 +22,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{D60D9083-A
 		README.md = README.md
 		tsconfig.base.json = tsconfig.base.json
 		dotnet-tools.json = .config/dotnet-tools.json
-		.gitignore= .gitignore
+			.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{879227D7-64E6-4E31-AFF7-358BF0B557F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{238A0741-D784-43B0-B3E5-1D109118DAF1}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\ci.yml = .github\workflows\ci.yml
 	EndProjectSection
 EndProject
 Global
@@ -47,5 +55,6 @@ Global
 		{42DF18F7-5A9A-4915-84C3-4CB80F66B635}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{238A0741-D784-43B0-B3E5-1D109118DAF1} = {879227D7-64E6-4E31-AFF7-358BF0B557F5}
 	EndGlobalSection
 EndGlobal
