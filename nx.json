@@ -1,9 +1,19 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
+    "ls": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "ls"
+      }
+    },
+    "prepare": {
+      "executor": "@nx-dotnet/core:restore"
+     },
     "build": {
       "cache": true,
       "dependsOn": [
+        "^install",
         "^build",
         "codegen",
         "^codegen"
@@ -11,15 +21,6 @@
       "inputs": [
         "production",
         "^production"
-      ]
-    },
-    "lint": {
-      "cache": true,
-      "inputs": [
-        "default",
-        "{workspaceRoot}/.eslintrc.json",
-        "{workspaceRoot}/.eslintignore",
-        "{workspaceRoot}/eslint.config.js"
       ]
     },
     "e2e": {
@@ -76,7 +77,7 @@
   "plugins": [
     {
       "plugin": "@nx-dotnet/core",
-      "options": {
+      "options":  {
         "solutionFile": "{npmScope}.nx-dotnet.sln",
         "inferProjects": true,
         "nugetPackages": {
@@ -124,6 +125,7 @@
         "tags": ["nx", "dotnet", "orleans", "openapi"]
       }
     }
+
   ],
   "generators": {
     "@nx/angular:library": {
@@ -132,6 +134,11 @@
     },
     "@nx/angular:component": {
       "style": "css"
+    },
+    "@nx-dotnet/core:add-swagger-target": {
+      "project": "api",
+      "swaggerProject": "generated/api-swagger",
+      "codegenProject": "generated/tsclient"
     }
   }
 }

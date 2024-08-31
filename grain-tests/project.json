@@ -1,0 +1,30 @@
+{
+  "name": "grain-tests",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "targets": {
+    "build": {
+      "executor": "@nx-dotnet/core:build",
+      "outputs": [
+        "{workspaceRoot}/dist/grain-tests",
+        "{workspaceRoot}/dist/intermediates/grain-tests"
+      ],
+      "options": {
+        "configuration": "Debug",
+        "noDependencies": true
+      },
+      "configurations": {
+        "production": {
+          "configuration": "Release"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx-dotnet/core:format"
+    },
+    "test": {
+      "executor": "@nx-dotnet/core:test",
+      "options": {}
+    }
+  },
+  "projectType": "library"
+}
