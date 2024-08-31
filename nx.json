@@ -1,15 +1,9 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
-    "ls": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "ls"
-      }
-    },
     "prepare": {
       "executor": "@nx-dotnet/core:restore"
-     },
+    },
     "build": {
       "cache": true,
       "dependsOn": [
@@ -28,32 +22,10 @@
     },
     "codegen": {
       "cache": true,
-      "executor": "@trumbitta/nx-plugin-openapi:generate-api-lib-sources"
-    },
-    "@nx/jest:jest": {
-      "cache": true,
-      "inputs": [
-        "default",
-        "^production",
-        "{workspaceRoot}/jest.preset.js"
-      ],
-      "options": {
-        "passWithNoTests": true
-      },
-      "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
-        }
-      }
-    },
-    "swagger": {
-      "cache": true
-    },
-    "@nx/angular:package": {
-      "cache": true,
-      "dependsOn": ["^build"],
-      "inputs": ["production", "^production"]
+      "executor": "@trumbitta/nx-plugin-openapi:generate-api-lib-sources",
+      "dependsOn": [
+        "^build"
+      ]
     }
   },
   "namedInputs": {
@@ -77,7 +49,7 @@
   "plugins": [
     {
       "plugin": "@nx-dotnet/core",
-      "options":  {
+      "options": {
         "solutionFile": "{npmScope}.nx-dotnet.sln",
         "inferProjects": true,
         "nugetPackages": {
@@ -122,23 +94,13 @@
           "test": "test"
         },
         "ignorePaths": [],
-        "tags": ["nx", "dotnet", "orleans", "openapi"]
+        "tags": [
+          "nx",
+          "dotnet",
+          "orleans",
+          "openapi"
+        ]
       }
     }
-
-  ],
-  "generators": {
-    "@nx/angular:library": {
-      "linter": "eslint",
-      "unitTestRunner": "jest"
-    },
-    "@nx/angular:component": {
-      "style": "css"
-    },
-    "@nx-dotnet/core:add-swagger-target": {
-      "project": "api",
-      "swaggerProject": "generated/api-swagger",
-      "codegenProject": "generated/tsclient"
-    }
-  }
+  ]
 }
