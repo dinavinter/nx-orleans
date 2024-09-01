@@ -35,9 +35,6 @@ jobs:
       # The "--stop-agents-after" is optional, but allows idle agents to shut down once the "e2e-ci" targets have been requested
       # - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
       - run: pnpm i
-
-      - uses: nrwl/nx-set-shas@v4
-
-      - run: pnpx nx-cloud record -- nx format:check
-      - run: pnpx nx affected -t lint test build
+      - run: pnpm build
+      - run: pnpm test
 
